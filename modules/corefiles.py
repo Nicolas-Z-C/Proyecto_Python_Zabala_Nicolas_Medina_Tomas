@@ -48,11 +48,11 @@ def Nombre():
     clr()
     Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
     if Nombre.isalpha() and len(Nombre) > 5:
-     return Nombre
+     return Nombre 
     else:
      print("El nombre y apellido esta mal creado, porfavor revisa tu sintaxis")
      Oprimir()
-    
+   
 
 def CC():
  # Esta funcion permite ingresar el numero de cedula del usuario
@@ -137,7 +137,28 @@ def Riesgo():
 
 def Login():
  # Esta funcion permite iniciar sesion en la aplicacion
- pass
+   contador = -1
+   db=js.ReadJson(js.JSON_CUENTAS)
+   while True:
+      if len(db) == -1:
+         contador += 1
+         
+      print("""
+            ----------------------------------------
+            |        Bienvenido Coordinador        |
+            ----------------------------------------
+            """)
+      if contador != 0:
+         ContraseñaRegistrada =   input('Ingrese la contraseña del sistema: ')
+         if db["contraseñaadmin"] == ContraseñaRegistrada: 
+            pass
+         else:
+            print("Contraseña incorrecta")
+            Oprimir()
+      else:
+         ContraseñaRegistrada = input('Registre la contraseña del sistema.\n Contraseña:  ')
+         js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
+         break
 
 def BorrarCuenta():
  # Esta funcion permite borrar una cuenta de usuario sea trainer o camper
