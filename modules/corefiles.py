@@ -130,6 +130,19 @@ def Estatus():
  return "Inscrito"
  pass
 
+def EditarEstatus():
+ # Esta funcion permite editar el estatus de un camper
+ db = js.ReadJson(js.JSON_CUENTAS)
+ while True:
+   cc=str(input("Porfavor ingrese la CC del estudiante que desea editar"))
+   if cc in db: 
+      status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
+      db[cc]["Estatus"] == status
+      return
+   else:
+      print("La cedula ingresada no se encuentra registrada")
+      Oprimir()
+
 def Riesgo():
  # Esta funcion permite ingresar el nivel de riesgo del usuario
  return "Bajo"
@@ -160,13 +173,6 @@ def Login():
          js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
          break
 
-<<<<<<< HEAD
-def CambiarContraseña():
- # Esta funcion permite cambiar la contraseña del usuario
- pass
-
-=======
->>>>>>> b97e96d702335f733b24d1ea37d155646458140c
 def CambiarNota():
  # Esta funcion permite cambiar la nota del Camper
  pass
