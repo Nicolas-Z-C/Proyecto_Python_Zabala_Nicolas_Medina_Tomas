@@ -93,13 +93,13 @@ def Telefono():
  while True:
     clr()
     op = input("""
-    ------------------------------------------------------------------
-    | Ingrese porfavor el tipo de telefono que se registrara al camper
-    |
-    | 1. Movil
-    | 2. Fijo            
-    |
-    ------------------------------------------------------------------         
+    --------------------------------------------------------------------
+    | Ingrese porfavor el tipo de telefono que se registrara al camper |
+    |                                                                  |
+    | 1. Movil                                                         |
+    | 2. Fijo                                                          |
+    |                                                                  |
+    --------------------------------------------------------------------        
     """)
     match op: 
      case "1":
@@ -160,10 +160,6 @@ def Login():
          js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
          break
 
-def BorrarCuenta():
- # Esta funcion permite borrar una cuenta de usuario sea trainer o camper
- pass
-
 def CambiarContraseña():
  # Esta funcion permite cambiar la contraseña del usuario
  pass
@@ -184,6 +180,63 @@ def CambiarEstatus():
  # Esta funcion permite cambiar el estatus del Camper
  pass   
 
+def RegistroNotas():
+   notas = {
+      CC: {
+         "Ruta": {
+               "Modulos": {
+                  "modulo 1": {
+                     "Nombre": "Fundamentos la programacion",
+                     "Notas": {
+                           "Trabajos": None,
+                           "Practica": None,
+                           "Teoria": None,
+                           "Total": None,
+                     }
+                  },
+                  "modulo 2": {
+                     "Nombre": "Progrmacion Web",
+                     "Notas": {
+                           "Trabajos": None,
+                           "Practica": None,
+                           "Teoria": None,
+                           "Total": None,
+                     }
+                  },
+                  "modulo 3": {
+                     "Nombre": "Programacion Formal",
+                     "Notas": {
+                           "Trabajos": None,
+                           "Practica": None,
+                           "Teoria": None,
+                           "Total": None,
+                     }
+                  },
+                  "modulo 4": {
+                     "Nombre": "Bases de datos",
+                     "Notas": {
+                           "Trabajos": None,
+                           "Practica": None,
+                           "Teoria": None,
+                           "Total": None,
+                     }
+                  },
+                  "modulo 5": {
+                     "Nombre": "Back-end",
+                     "Notas": {
+                           "Trabajos": None,
+                           "Practica": None,
+                           "Teoria": None,
+                           "Total": None,
+                     }
+                  }
+               }
+         }
+      }
+   }
+
+def InitializeRutas():
+   pass
 def NuevaRuta():
  # Esta funcion permite crear una nueva ruta
  pass
