@@ -6,19 +6,22 @@ def MainMenu():
     print("""
         **** Menu Principal ****       
     --------------------------------------------
-        1. Crear Cuenta (Camper/Trainer)
-        2. Cambiar Estatus Camper
-        3. Cambiar Notas
-        4. Crear Nueva Ruta
-        5. Matricular Campers
-        6. Reportes
-        7. Borrar Cuenta(Camper/Trainer)
-        8. Salir   
+        1. Crear Cuenta (Camper)
+        2. Crear Cuenta (Trainer)  
+        3. Cambiar Estatus Camper
+        4. Cambiar Notas
+        5. Crear Nueva Ruta
+        6. Matricular Campers
+        7. Reportes
+        8. Borrar Cuenta(Camper)
+        9. Borrar Cuenta(Camper) 
+       10. Salir   
     --------------------------------------------
           
     Porfavor elija una opcion:
     """)
         
+<<<<<<< HEAD
         
 def MenuRutaEstudiante():
     core.clr()
@@ -36,3 +39,5 @@ def MenuRutaEstudiante():
     -------------------------------------------
     
           """)
+=======
+>>>>>>> 32693503443ba4b712661774dec599ffb00ce7a9

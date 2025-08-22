@@ -16,18 +16,22 @@ while True:
   case "1":
     core.CrearCuenta()
   case "2":
-    core.CambiarEstatusCamper()
+    core.AgregarTrainer()
   case "3":
-    core.CambiarNotas()
+    core.CambiarEstatusCamper()
   case "4":
-    core.CrearNuevaRuta()
+    core.CambiarNotas()
   case "5":
-    core.MatricularCampers()
+    core.CrearNuevaRuta()
   case "6":
-    core.Reportes()
+    core.MatricularCampers()
   case "7":
-    core.BorrarCuenta()
+    core.VerNotas()
   case "8":
+    core.BorrarCuentaCamper()
+  case "9":
+    core.BorrarCuentaTrainer()
+  case "10":
     print("Saliendo del sistema...")
     break
   case _:
