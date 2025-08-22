@@ -3,8 +3,9 @@ import json
 from typing import Dict, List, Optional, Any, Union, Callable
 
 
-JSON_CUENTAS = "/home/camper/borradores/proyecto__/Proyecto_Python_Zabala_Nicolas_Medina_Tomas/data/json_cuentas.json"
-
+JSON_CUENTAS = "/home/camper/Proyecto_Python_Zabala_Nicolas_Medina_Tomas/data/JsonCuentas.json"
+JSON_NOTAS = "/home/camper/Proyecto_Python_Zabala_Nicolas_Medina_Tomas/data/JsonNotas.json"
+JSON_RUTAS = "/home/camper/Proyecto_Python_Zabala_Nicolas_Medina_Tomas/data/JsonRutas.json"
 
 def ReadJson(file_path: str)-> Dict:
     try:
