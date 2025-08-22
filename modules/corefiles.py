@@ -160,14 +160,6 @@ def Login():
          js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
          break
 
-def BorrarCuenta():
- # Esta funcion permite borrar una cuenta de usuario sea trainer o camper
- pass
-
-def CambiarContraseña():
- # Esta funcion permite cambiar la contraseña del usuario
- pass
-
 def CambiarNota():
  # Esta funcion permite cambiar la nota del Camper
  pass
