@@ -16,12 +16,28 @@ def Oprimir():
  clr()
  input("Vuelva a intentarlo (Oprima una tecla para continuar")
 
+def AgregarTrainer():
+ print("""
+        ---------------------------------------------------------
+        |A continuacion porfavor ingrese los datos del Trainer
+        ---------------------------------------------------------
+        """)
+ TrainerNuevo = {
+     
+     "Nombre":Nombre(),
+     "CC":CC(),
+     "Direccion":Direccion(),
+     "Telefono":Telefono(), 
+     }
+    
+ Trainer={TrainerNuevo["CC"]:TrainerNuevo}
+ js.UpdateJson(js.JSON_CUENTAS,{"Trainers": Trainer})
+ 
 def CrearCuenta():
  # Esta funcion permite crear una cuenta de usuario sea trainer o camper
  cuenta={}
  while True:
     db=js.ReadJson(js.JSON_CUENTAS)
-    llave=len(db)+1
     print("""
         ---------------------------------------------------------
         |A continuacion porfavor ingrese los datos de los campers
@@ -40,7 +56,18 @@ def CrearCuenta():
      }
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
-    js.UpdateJson(js.JSON_CUENTAS,cuenta)
+    js.UpdateJson(js.JSON_CUENTAS,{"Camper": cuenta})
+    print("Cuenta creada exitosamente")
+    print(cuentaNueva)
+
+    op = input("Desea crear otra cuenta? (S/N): ").strip().upper()
+    if op == "N":
+        return
+    elif op == "S":
+        continue
+    else:
+        print("Opcion no valida, porfavor intente de nuevo")
+        Oprimir()
 
 def Nombre():
  # Esta funcion permite ingresar el nombre del usuario
@@ -128,7 +155,7 @@ def Telefono():
 def Estatus():
  # Esta funcion permite ingresar el estatus del usuario
  return "Inscrito"
- pass
+ 
 
 def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
@@ -144,10 +171,41 @@ def EditarEstatus():
       Oprimir()
 
 def Riesgo():
- # Esta funcion permite ingresar el nivel de riesgo del usuario
+ # Esta funcion permite ingresar el nivel de riesgo inicial del usuario
  return "Bajo"
- pass
+ 
 
+def EditarRiesgo(cc: str):
+ # Esta funcion permite editar el nivel de riesgo del usuario
+ dbNotas = js.ReadJson(js.JSON_NOTAS)
+ db = js.ReadJson(js.JSON_CUENTAS)
+ for i in dbNotas[cc]["Ruta"]["Modulos"]:
+   if len(dbNotas[cc["Ruta"]]) > 1:
+      nota = dbNotas[cc]["Ruta"]["Modulos"]
+      if nota < 60:
+        db[cc]["Riesgo"] = "Alto"
+        return
+      else:
+        pass
+   else:
+     nota += dbNotas[cc]["Ruta"]["Modulos"]["Total"]
+     modulos +=1
+ promedio= nota/modulos
+ if promedio < 60:
+   db[cc]["Riesgo"] = "Alto"
+   return
+
+def Rutainicial():
+  dbRutas=js.ReadJson(js.JSON_RUTAS)
+  rutas= dbRutas.keys()
+  ruta=str(input(f"""
+-----------------------------------
+Las rutas disponibles son: 
+{rutas}
+Elija una de estas porfavor:
+-----------------------------------
+"""))
+  
 def Login():
  # Esta funcion permite iniciar sesion en la aplicacion
    contador = -1
