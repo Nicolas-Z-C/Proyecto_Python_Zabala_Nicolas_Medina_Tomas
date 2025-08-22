@@ -1,3 +1,4 @@
+import os
 import json
 from typing import Dict, List, Optional, Any, Union, Callable
 
@@ -28,3 +29,11 @@ def UpdateJson(file_path: str, data: Dict, path: Optional[list[str]] = None) -> 
         if path:
             current.setdefault(path[:-1], {}).update(data)
     WriteJson(file_path, CurrentData)
+
+
+def iniciar (file_path: str) -> None:
+    with open(file_path, "w", encoding="utf-8") as ArchivoJson:
+        pass # falta terminar la creacion del archivo json
+
+
+JsonCuenta = iniciar(JSON_CUENTAS)
