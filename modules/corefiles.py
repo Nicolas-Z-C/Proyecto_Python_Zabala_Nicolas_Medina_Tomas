@@ -139,10 +139,6 @@ def Login():
  # Esta funcion permite iniciar sesion en la aplicacion
  pass
 
-def Logout():
- # Esta funcion permite cerrar sesion en la aplicacion
- pass
-
 def BorrarCuenta():
  # Esta funcion permite borrar una cuenta de usuario sea trainer o camper
  pass
