@@ -31,9 +31,17 @@ def UpdateJson(file_path: str, data: Dict, path: Optional[list[str]] = None) -> 
     WriteJson(file_path, CurrentData)
 
 
-def iniciar (file_path: str) -> None:
+def IniciarVacio (file_path: str) -> None:
     with open(file_path, "w", encoding="utf-8") as ArchivoJson:
-        pass # falta terminar la creacion del archivo json
+        json.dump({}, ArchivoJson, indent=4)
 
+def InitJson(file_path: str, initial_structure: Dict) -> None:
+    if not os.path.isfile(file_path):
+        WriteJson(file_path, initial_structure)
+    else:
+        current_data = ReadJson(file_path)
+        for key, value in initial_structure.items():
+            if key not in current_data:
+                current_data[key] = value
+        WriteJson(file_path, current_data)
 
-JsonCuenta = iniciar(JSON_CUENTAS)

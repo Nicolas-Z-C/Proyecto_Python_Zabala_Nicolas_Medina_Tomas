@@ -160,10 +160,13 @@ def Login():
          js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
          break
 
+<<<<<<< HEAD
 def CambiarContraseña():
  # Esta funcion permite cambiar la contraseña del usuario
  pass
 
+=======
+>>>>>>> b97e96d702335f733b24d1ea37d155646458140c
 def CambiarNota():
  # Esta funcion permite cambiar la nota del Camper
  pass

@@ -3,7 +3,7 @@ import modules.menufiles as menus
 if __name__ == "__main__":
  print("""
        -------------------------------------------------------------
-       |***Bienvenido al sistema de gestion de campers y trainers***
+       |***Bienvenido al sistema de gestion de campers y trainers***|
        -------------------------------------------------------------
        """)
  core.Wait(1)
