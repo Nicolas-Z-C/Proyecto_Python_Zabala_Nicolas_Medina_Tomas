@@ -1,20 +1,19 @@
 import os
 import json
+from typing import Dict, List, Optional, Any, Union, Callable
+
 
 JSON_CUENTAS = "/home/camper/borradores/proyecto__/Proyecto_Python_Zabala_Nicolas_Medina_Tomas/data/json_cuentas.json"
 
-JSON_CUENTAS_BORRADAS = None    
 
-def ReadJson(file_path: str)-> dict[str, any]:
+def ReadJson(file_path: str)-> Dict:
     try:
-        with open(file_path, "r", encoding="utf-8") as ArchivJson:
-            return json.load(ArchivJson)
-    except(FileExistsError, json.JSONDecodeError):
+        with open(file_path, "r", encoding="utf-8") as ArchivoJson:
+            return json.load(ArchivoJson)
+    except FileExistsError:
         return{}
     
-def WriteJson(file_path: str, data: dict[str, any]) -> None:
-    directory = os.path.dirname(file_path)
-    if directory:
-        os.makedev(directory, exist_ok=True)
-    with open(file_path, "w", encoding="utf-8")  as ArchivoJson:
-        json.dump()
+def WriteJson(file_path: str, data: Dict) -> None:
+    with open(file_path, "w", encoding="utf-8") as ArchivoJson:
+        json.dump(data, ArchivoJson, indent=4)
+
