@@ -12,46 +12,62 @@ def Wait(S:int):
  time.sleep(S)
 
 def Oprimir():
+ # Funcion para cuando hay un error con el usuario
  clr()
- input("La opcion ingresada no es valida, vuelva a intentarlo (Oprima una tecla para continuar)")
+ input("Vuelva a intentarlo (Oprima una tecla para continuar")
 
 def CrearCuenta():
  # Esta funcion permite crear una cuenta de usuario sea trainer o camper
  cuenta={}
  while True:
-    db=js.ReadJson(js.)
-    llave=
+    db=js.ReadJson(js.JSON_CUENTAS)
+    llave=len(db)+1
     print("""
         ---------------------------------------------------------
         |A continuacion porfavor ingrese los datos de los campers
         ---------------------------------------------------------
         """)
+    cuentaNueva = {
+     
+     "Nombre":Nombre(),
+     "CC":CC(),
+     "Direccion":Direccion(),
+     "Acudiente":Acudiente(),
+     "Telefono":Telefono(), 
+     "Estatus":Estatus(),
+     "Riesgo":Riesgo()
+
+     }
     
- 
- pass
+    cuenta={cuentaNueva["CC"]:cuentaNueva}
+    js.UpdateJson(js.JSON_CUENTAS,cuenta)
 
 def Nombre():
  # Esta funcion permite ingresar el nombre del usuario
  while True:
     clr()
-    try:
-        Nombre=str(input("Porfavor ingrese el nombre del camper: "))
-        if Nombre.isalpha():
-         return Nombre
-        else:
-         Oprimir()
-    except ValueError:
-     Oprimir
+    Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
+    if Nombre.isalpha() and len(Nombre) > 5:
+     return Nombre
+    else:
+     print("El nombre y apellido esta mal creado, porfavor revisa tu sintaxis")
+     Oprimir()
     
 
 def CC():
  # Esta funcion permite ingresar el numero de cedula del usuario
  while True:
+  cuentas=js.ReadJson(js.JSON_CUENTAS)
   clr()
   try:
    cc=int(input("Porfavor ingrese su numero de cedula"))
-   return cc
+   if cc in cuentas:
+    print("El valor registrado ya se encuentra en nuestra base de datos")
+    Oprimir()
+   else:
+    return cc
   except ValueError:
+   print("Valor no soportado")
    Oprimir()
 
 def Direccion():
@@ -67,20 +83,56 @@ def Acudiente():
   clr()
   NomAcu=str(input("Porfavor ingrese el nombre del acudiente del camper: "))
   if NomAcu.isdigit:
+   print("Valor no soportado, el nombre no puede contener numeros")
    Oprimir()
   else:
    return NomAcu
 
 def Telefono():
  # Esta funcion permite ingresar el telefono del usuario
- pass
+ while True:
+    clr()
+    op = input("""
+    ------------------------------------------------------------------
+    | Ingrese porfavor el tipo de telefono que se registrara al camper
+    |
+    | 1. Movil
+    | 2. Fijo            
+    |
+    ------------------------------------------------------------------         
+    """)
+    match op: 
+     case "1":
+      try:
+        numero=str(input("Digite el telefono movil del camper: "))
+        if len(numero) != 10:
+         Oprimir()
+        else: 
+         return numero
+      except:
+       Oprimir()
+     case "2":
+      try:
+        numero=str(input("Digite el telefono fijo del camper: "))
+        if len(numero) != 8 :
+         Oprimir()
+        else: 
+         return numero
+      except:
+       Oprimir() 
+     case _:
+      Oprimir()
+ 
+ 
 
 def Estatus():
  # Esta funcion permite ingresar el estatus del usuario
+ return "Inscrito"
  pass
 
 def Riesgo():
  # Esta funcion permite ingresar el nivel de riesgo del usuario
+ return "Bajo"
  pass
 
 def Login():
