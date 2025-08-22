@@ -1,35 +1,75 @@
 import os
 import time
+import modules.json as js 
 #Inicio de las funciones de la aplicacion
 
 def clr(): 
- # Limpia la consola
- # Dependiendo del sistema operativo
+ # Limpia la consola dependiendo del sistema operativo
  os.system('cls' if os.name == 'nt' else 'clear') 
 
 def Wait(S:int):
  # Espera S segundos
  time.sleep(S)
 
+def Oprimir():
+ clr()
+ input("La opcion ingresada no es valida, vuelva a intentarlo (Oprima una tecla para continuar)")
+
 def CrearCuenta():
  # Esta funcion permite crear una cuenta de usuario sea trainer o camper
+ cuenta={}
+ while True:
+    db=js.ReadJson(js.)
+    llave=
+    print("""
+        ---------------------------------------------------------
+        |A continuacion porfavor ingrese los datos de los campers
+        ---------------------------------------------------------
+        """)
+    
+ 
  pass
 
 def Nombre():
  # Esta funcion permite ingresar el nombre del usuario
- pass
+ while True:
+    clr()
+    try:
+        Nombre=str(input("Porfavor ingrese el nombre del camper: "))
+        if Nombre.isalpha():
+         return Nombre
+        else:
+         Oprimir()
+    except ValueError:
+     Oprimir
+    
 
 def CC():
  # Esta funcion permite ingresar el numero de cedula del usuario
- pass
+ while True:
+  clr()
+  try:
+   cc=int(input("Porfavor ingrese su numero de cedula"))
+   return cc
+  except ValueError:
+   Oprimir()
 
 def Direccion():
  # Esta funcion permite ingresar la direccion del usuario
- pass
+ while True:
+  clr()
+  dir=str(input("Porfavor ingresa la direccion de residencia del camper"))
+  return dir
 
 def Acudiente():
  # Esta funcion permite ingresar el nombre del acudiente del usuario
- pass
+ while True:
+  clr()
+  NomAcu=str(input("Porfavor ingrese el nombre del acudiente del camper: "))
+  if NomAcu.isdigit:
+   Oprimir()
+  else:
+   return NomAcu
 
 def Telefono():
  # Esta funcion permite ingresar el telefono del usuario
