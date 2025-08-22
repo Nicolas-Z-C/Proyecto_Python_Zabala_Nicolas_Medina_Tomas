@@ -19,4 +19,20 @@ def MainMenu():
     Porfavor elija una opcion:
     """)
         
+        
+def MenuRutaEstudiante():
+    core.clr()
+    print("""
+    -------------------------------------------
+                    Modulos
+    -------------------------------------------
+        
+        1. Fundamentos de la programacion
+        2. Programacion Web
+        3. Programacion Formal
+        4. Bases de Datos
+        5. Back-end
+        
+    -------------------------------------------
+    
           """)

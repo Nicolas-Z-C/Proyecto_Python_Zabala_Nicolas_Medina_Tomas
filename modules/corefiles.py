@@ -1,6 +1,7 @@
 import os
 import time
 import modules.json as js 
+import modules.menufiles as mn
 #Inicio de las funciones de la aplicacion
 
 def clr(): 
@@ -35,12 +36,13 @@ def CrearCuenta():
      "Acudiente":Acudiente(),
      "Telefono":Telefono(), 
      "Estatus":Estatus(),
-     "Riesgo":Riesgo()
-
+     "Riesgo":Riesgo(),
+     "Ruta": None
      }
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
     js.UpdateJson(js.JSON_CUENTAS,cuenta)
+
 
 def Nombre():
  # Esta funcion permite ingresar el nombre del usuario
@@ -161,12 +163,7 @@ def Login():
          break
 
 <<<<<<< HEAD
-def CambiarContraseña():
- # Esta funcion permite cambiar la contraseña del usuario
- pass
 
-=======
->>>>>>> b97e96d702335f733b24d1ea37d155646458140c
 def CambiarNota():
  # Esta funcion permite cambiar la nota del Camper
  pass
@@ -186,12 +183,12 @@ def CambiarEstatus():
 def RegistroNotas():
    notas = {
       CC: {
-         "Ruta": {
+         RutaEstudiante(): {
                "Modulos": {
                   "modulo 1": {
                      "Nombre": "Fundamentos la programacion",
                      "Notas": {
-                           "Trabajos": None,
+                           "Trabajos": NotaTrabajos(),
                            "Practica": None,
                            "Teoria": None,
                            "Total": None,
@@ -237,7 +234,7 @@ def RegistroNotas():
          }
       }
    }
-
+   js.InitJson(js.JSON_NOTAS, notas)
 def InitializeRutas():
    pass
 def NuevaRuta():
@@ -248,13 +245,64 @@ def VerRutas():
  # Esta funcion permite ver las rutas creadas
  pass
 
+def AgregarRuta():
+   pass
 def BorrarRuta():
  # Esta funcion permite borrar una ruta
  pass 
+def NotraTrabajos():
+   dbNotas=js.ReadJson(js.JSON_NOTAS)
+   notaTrabajo = int(input('Ingrese la nota del trabajo: '))
+   
 
-def AgregarARuta():
- # Esta funcion permite agregar un camper a una ruta
- pass
+def AgregarNota():
+   db=js.ReadJson(js.JSON_NOTAS)
+   while True:
+      try:
+         Estudiante = input('Ingrese el documento de identidad del estudiante:')
+         if Estudiante in db[CC]:
+            print('Estudiante registrado.')
+            input('Precione una tecla para continuar..')
+            mn.MenuRutaEstudiante()
+            Opc = input('Ingrese la opcion que desee: ')
+            match Opc:
+               case '1':
+                  print("""
+                  -----------------------------------------
+                        Fundamentos de la Programacion
+                  -----------------------------------------
+                        """)
+                  print(f'\nLa nota actual del Estudiante {} es: {}')
+                  NotaTrabajos()
+               case '2':
+                  print("""
+                  -----------------------------------------
+                        Fundamentos de la Programacion
+                  -----------------------------------------
+                        """)
+               case '3':
+                  print("""
+                  -----------------------------------------
+                        Fundamentos de la Programacion
+                  -----------------------------------------
+                        """)
+               case '4':
+                  print("""
+                  -----------------------------------------
+                        Fundamentos de la Programacion
+                  -----------------------------------------
+                        """)
+               case '5':
+                  print("""
+                  -----------------------------------------
+                        Fundamentos de la Programacion
+                  -----------------------------------------
+                        """)
+               case _:
+                  pass
+      except ValueError:
+         Oprimir()      
+   
 
 def EliminarDeRuta():
  # Esta funcion permite eliminar un camper de una ruta
@@ -283,6 +331,5 @@ def CampersYTrainersMismaRuta():
 def Estadisticas():
  # Esta funcion permite ver las estadisticas academicas
  pass
-
 
 
