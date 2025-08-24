@@ -14,8 +14,7 @@ def Wait(S:int):
 
 def Oprimir():
  # Funcion para cuando hay un error con el usuario
- clr()
- input("Vuelva a intentarlo (Oprima una tecla para continuar")
+ input("Oprima una tecla para continuar")
 
 def AgregarTrainer():
  print("""
@@ -32,7 +31,7 @@ def AgregarTrainer():
      }
     
  Trainer={TrainerNuevo["CC"]:TrainerNuevo}
- js.UpdateJson(js.JSON_CUENTAS,{"Trainers": Trainer})
+ js.UpdateJson(js.JSON_CUENTAS,Trainer,["TRAINERS"])
  
 def CrearCuenta():
  # Esta funcion permite crear una cuenta de usuario sea trainer o camper
@@ -57,7 +56,7 @@ def CrearCuenta():
      }
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
-    js.UpdateJson(js.JSON_CUENTAS,{"Camper": cuenta})
+    js.UpdateJson(js.JSON_CUENTAS,cuenta,["CAMPERS"])
     print("Cuenta creada exitosamente")
     print(cuentaNueva)
 
@@ -306,11 +305,99 @@ def RegistroNotas():
 def InitializeRutas():
    pass
 def NuevaRuta():
- # Esta funcion permite crear una nueva ruta
- pass
+  # Esta funcion permite crear una nueva ruta
+  while True:
+   clr() 
+   print("Para crear una nueva ruta porfavor ingrese los siguientes datos: ")
+   Oprimir()
+   dbRutas = js.ReadJson(js.JSON_RUTAS)
+   if len(dbRutas) == 12:
+      print("Lo sentimos, no puede crear mas rutas, el maximo actual son 12")
+      Oprimir()
+      return
+   else:
+      resultadoFunc=SalaEntrenamientoYHorario()
+      salon= resultadoFunc(0)
+      horario= resultadoFunc(1)
+      Ruta = {
+      NomRuta():{
+         "MODULOS":{Modulos()},
+         "SALON":salon,
+         "HORARIO":horario,
+         "TRAINER":TrainerEncargado(),
+         "CAMPERS":{}
+      }    
+      }
+      js.UpdateJson(js.JSON_RUTAS, Ruta)
+      op = input("Desea crear otra ruta? (S/N): ").strip().upper()
+      if op == "N":
+         return
+      elif op == "S":
+         continue
+      else:
+         print("Opcion no valida, porfavor intente de nuevo")
+         Oprimir()
+
+def Modulos():
+  modulosDicc= {
+       "Modulos": {
+                  "MODULO1":"Fundamentos la programacion",
+                  "MODULO2":"Progrmacion Web",
+                  "MODULO3":"Programacion Formal",
+                  "MODULO4":"Bases de datos",
+                  "modulo 5":"Back-end"
+                  }
+  }
+  return modulosDicc
+
+def NomRuta():
+ while True:
+   clr()
+   dbRutas = js.ReadJson(js.JSON_RUTAS)
+   NomRuta = str(input("Porfavor ingrese el nombre de la ruta que desea crear"))
+   if NomRuta in dbRutas:
+      print("Porfavor eliga otro nombre para la ruta este ya se encuentra asignado")
+      Oprimir()
+   else:
+      return NomRuta 
+
+def SalaEntrenamientoYHorario():
+  while True:
+    clr()
+    dbRutas=js.ReadJson(js.JSON_RUTAS)
+    salon=str(input("Porfavor escriba el nombre del salon al que desea asignar la ruta(W1,W2,W3)")).upper().strip()
+    horario=int(input("Ahora porfavor ingrese el horario al cual desea asignar a la ruta (1|2|3|4)"))
+    if horario <= 4:
+      for i, x in dbRutas.items():
+          if salon == x["SALON"] and horario == x["HORARIO"]:
+            print(f"Lo sentimos este salon y horario ya se encuentra reservado para la ruta {i}")
+          else:
+            salaYHorario=[salon,horario]
+            return salaYHorario
+def TrainerEncargado():
+  while True:
+    clr()
+    dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+    trainer=str(input("Porfavor ingrese el numero de identifiacion del trainer encargado"))
+    if trainer in dbCuentas["Trainers"]:
+      print("Trainer agregado correctamente")
+      Oprimir()
+      return trainer
+    else:
+      print("El trainer mencionado no se encuentra en nuestra base de datos")
 
 def VerRutas():
+ clr()
  # Esta funcion permite ver las rutas creadas
+ dbRutas= js.ReadJson(js.JSON_RUTAS)
+ Rutas= dbRutas.keys()
+ print("Las rutas creadas son las siguientes:")
+ for i, f in Rutas:
+   print(f"""
+         -------------------------
+         | {i}-{f}
+         -------------------------
+""")
  pass
 
 def AgregarRuta():
