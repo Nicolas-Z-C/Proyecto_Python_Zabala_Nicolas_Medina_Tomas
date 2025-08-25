@@ -24,11 +24,9 @@ def IniciarJsons1():
         "CAMPERS": {},
         "RUTAS": {}
     }
- js.InitJson(js.JSON_CUENTAS, estructuraInicialCuentas)
-
-def IniciarJsons2():
  a = {}
  js.InitJson(js.JSON_NOTAS, a)
+ js.InitJson(js.JSON_CUENTAS, estructuraInicialCuentas)
   
 def IniciarJsonRutas():
  fechas= FechaFinal()
@@ -114,7 +112,6 @@ def CrearCuenta():
  # Esta funcion permite crear una cuenta de usuario sea trainer o camper
  cuenta={}
  while True:
-    db=js.ReadJson(js.JSON_CUENTAS)
     print("""
         ---------------------------------------------------------
         |A continuacion porfavor ingrese los datos de los campers
@@ -124,12 +121,12 @@ def CrearCuenta():
      
      "Nombre":Nombre(),
      "CC":CC(),
-     "Direccion":Direccion(),
-     "Acudiente":Acudiente(),
-     "Telefono":Telefono(), 
-     "Estatus":Estatus(),
-     "Riesgo":Riesgo(),
-     "Ruta": None
+     "DIRECCION":Direccion(),
+     "ACUDIENTE":Acudiente(),
+     "TELEFONO":Telefono(), 
+     "ESTATUS":"INSCRITO",
+     "RIESGO":"BAJO",
+     "RUTA": None
      }
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
@@ -197,53 +194,36 @@ def Telefono():
     | 2. Fijo                                                          |
     |                                                                  |
     --------------------------------------------------------------------        
-    """)
+    : """)
     match op: 
      case "1":
-      try:
         numero=str(input("Digite el telefono movil del camper: "))
         if len(numero) != 10:
          Oprimir()
         else: 
          return numero
-      except:
-       Oprimir()
      case "2":
-      try:
         numero=str(input("Digite el telefono fijo del camper: "))
-        if len(numero) != 8 :
+        if len(numero) != 8:
          Oprimir()
         else: 
          return numero
-      except:
-       Oprimir() 
      case _:
       Oprimir()
- 
- 
-
-def Estatus():
- # Esta funcion permite ingresar el estatus del usuario
- return "Inscrito"
- 
 
 def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
- db = js.ReadJson(js)
+ db = js.ReadJson(js.JSON_CUENTAS)
  while True:
    cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
    if cc in db: 
       status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
-      db[cc]["Estatus"] == status
-      return
+      db["CAMPERS"][cc]["Estatus"] == status 
+      js.UpdateJson(js.JSON_CUENTAS, db,)
+      return 
    else:
       print("La cedula ingresada no se encuentra registrada")
       Oprimir()
-
-def Riesgo():
- # Esta funcion permite ingresar el nivel de riesgo inicial del usuario
- return "Bajo"
- 
 
 def EditarRiesgo(cc: str):
  # Esta funcion permite editar el nivel de riesgo del usuario
@@ -479,9 +459,8 @@ def OrdenRegistroNotas(CC: str):
          }
       }
    }
+   return notas
    
-   js.InitJson(js.JSON_NOTAS, notas)
-pass
 def RegistrarNotas():
    db=js.ReadJson(js.JSON_CUENTAS)
    OrdenRegistroNotas()

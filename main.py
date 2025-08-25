@@ -17,7 +17,6 @@ if __name__ == "__main__":
 
  if contador == True:
    core.IniciarJsons1()
-   core.IniciarJsons2()
  else:
    pass
  core.Login()
