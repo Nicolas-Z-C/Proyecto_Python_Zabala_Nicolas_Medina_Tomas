@@ -34,52 +34,25 @@ def IniciarJsonRutas():
  fechaFinalizacion=fechas(1)      
  estructuraInicialRutas={
         "NODEJS": {
-         "MODULOS":{
-             "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Programacion Web",
-                  "MODULO3":"Programacion Formal",
-                  "MODULO4":"Bases de datos",
-                  "modulo 5":"Back-end"
-         },
          "SALON":"W1",
          "HORARIO":1,
-         "TRAINER":None,
+         "TRAINER":TrainerEncargado("NODEJS"),
          "CAMPERS":{},
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
         },
         "JAVA": {
-         "MODULOS":{
-             "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Programacion Web",
-                  "MODULO3":"Programacion Formal",
-                  "MODULO4":"Bases de datos",
-                  "modulo 5":"Back-end"
-         },
          "SALON":"W2",
          "HORARIO":1,
-         "TRAINER":None,
-         "CAMPERS":{
-             "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Programacion Web",
-                  "MODULO3":"Programacion Formal",
-                  "MODULO4":"Bases de datos",
-                  "modulo 5":"Back-end"
-         },
+         "TRAINER":TrainerEncargado("JAVA"),
+         "CAMPERS":{},
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
         },
         "NETCORE": {
-         "MODULOS":{
-             "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Programacion Web",
-                  "MODULO3":"Programacion Formal",
-                  "MODULO4":"Bases de datos",
-                  "modulo 5":"Back-end"
-         },
          "SALON":"W3",
          "HORARIO":1,
-         "TRAINER":None,
+         "TRAINER":TrainerEncargado("NETCORE"),
          "CAMPERS":{},
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
@@ -238,20 +211,12 @@ def EditarEstatus():
       print("La cedula ingresada no se encuentra registrada")
       Oprimir()
 
-def EditarRiesgo(cc: str):
+def EditarRiesgo(cc: str,ModuloATomar):
  # Esta funcion permite editar el nivel de riesgo del usuario
  dbNotas = js.ReadJson(js.JSON_NOTAS)
  db = js.ReadJson(js.JSON_CUENTAS)
- for i in dbNotas[cc]["Ruta"]["Modulos"]:
-   if len(dbNotas[cc["Ruta"]]) > 1:
-      nota = dbNotas[cc]["Ruta"]["Modulos"]
-      if nota < 60:
-        db[cc]["Riesgo"] = "Alto"
-        return
-      else:
-        pass
-   else:
-     nota += dbNotas[cc]["Ruta"]["Modulos"]["Total"]
+ for i in dbNotas[cc]["Modulos"]:
+     nota += dbNotas[cc]["Modulos"][ModuloATomar]["Total"]
      modulos +=1
  promedio= nota/modulos
  if promedio < 60:
@@ -296,6 +261,19 @@ def VerUsuarios():
  dbCuentas= js.ReadJson(js.JSON_CUENTAS)
  Cuentas= dbCuentas["CAMPERS"].keys()
  print("Las rutas creadas son las siguientes:")
+ for i, f in Cuentas:
+   print(f"""
+         -------------------------
+         | {i}-{f}
+         -------------------------
+""")
+ pass   
+
+def VerTrainer():
+ # Esta funcion permite ver los usuarios registrados en la aplicacion
+ dbCuentas= js.ReadJson(js.JSON_CUENTAS)
+ Cuentas= dbCuentas["TRAINERS"].keys()
+ print("Los Trainers son los siguientes:")
  for i, f in Cuentas:
    print(f"""
          -------------------------
@@ -492,11 +470,17 @@ def RegistrarNotas():
 
 def NuevaRuta():
   # Esta funcion permite crear una nueva ruta
+  dbRutas = js.ReadJson(js.JSON_RUTAS)
+  a= js.ReadJson(js.JSON_RUTAS)
+  if len(a) == 3:
+    print("Antes de crear una nueva ruta porfavor organice las 3 que ya existen")
+    TrainerEncargado()
+  else: 
+    pass
   while True:
    clr() 
    print("Para crear una nueva ruta porfavor ingrese los siguientes datos: ")
    Oprimir()
-   dbRutas = js.ReadJson(js.JSON_RUTAS)
    if len(dbRutas) == 12:
       print("Lo sentimos, no puede crear mas rutas, el maximo actual son 12")
       Oprimir()
@@ -508,12 +492,12 @@ def NuevaRuta():
       fechas=FechaFinal()
       fechaInicio=fechas(0)
       fechaFinalizacion=fechas(1)
+      nombreRuta=NomRuta()
       Ruta = {
-      NomRuta():{
-         "MODULOS":{Modulos()},
+      nombreRuta:{
          "SALON":salon,
          "HORARIO":horario,
-         "TRAINER":TrainerEncargado(),
+         "TRAINER":TrainerEncargado(nombreRuta),
          "CAMPERS":{},
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL":fechaFinalizacion,
@@ -571,18 +555,6 @@ def FechaFinal():
      fechaInicial=f"{fechaInit(0)}/{fechaInit(1)}/{fechaInit(2)}"
      return fechaInicial, fechaFinal  
 
-def Modulos():
-  modulosDicc= {
-       "Modulos": {
-                  "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Programacion Web",
-                  "MODULO3":"Programacion Formal",
-                  "MODULO4":"Bases de datos",
-                  "modulo 5":"Back-end"
-                  }
-  }
-  return modulosDicc
-
 def NomRuta():
  while True:
    clr()
@@ -612,11 +584,13 @@ def SalaEntrenamientoYHorario():
     else:
       print("Porfavor elija un horario adecuado")
       Oprimir()
-def TrainerEncargado():
+
+def TrainerEncargado(Ruta:str):
   while True:
     clr()
+    VerTrainer()
     dbCuentas=js.ReadJson(js.JSON_CUENTAS)
-    trainer=str(input("Porfavor ingrese el numero de identifiacion del trainer encargado")).upper().strip()
+    trainer=str(input(f"Porfavor ingrese el numero de identifiacion del trainer encargado al la ruta {Ruta}")).strip()
     if trainer in dbCuentas["TRAINERS"]:
       print("Trainer agregado correctamente")
       Oprimir()
