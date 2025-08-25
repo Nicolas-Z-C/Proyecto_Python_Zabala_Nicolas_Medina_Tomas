@@ -1,7 +1,9 @@
 import os
 import time
-import random
-import modules.json as js 
+from datetime import date
+
+import modules.Js as js 
+
 import modules.menufiles as mn
 #Inicio de las funciones de la aplicacion
 
@@ -17,6 +19,79 @@ def Oprimir():
  # Funcion para cuando hay un error con el usuario
  input("Oprima una tecla para continuar")
 
+def IniciarJsons1():
+ estructuraInicialCuentas = {
+        "CAMPERS": {},
+        "RUTAS": {}
+    }
+ js.InitJson(js.JSON_CUENTAS, estructuraInicialCuentas)
+
+def IniciarJsons2():
+ a = {}
+ js.InitJson(js.JSON_NOTAS, a)
+  
+def IniciarJsonRutas():
+ fechas= FechaFinal()
+ fechaInicio=fechas(0)
+ fechaFinalizacion=fechas(1)      
+ estructuraInicialRutas={
+        "NODEJS": {
+         "MODULOS":{
+             "MODULO1":"Fundamentos la programacion",
+                  "MODULO2":"Programacion Web",
+                  "MODULO3":"Programacion Formal",
+                  "MODULO4":"Bases de datos",
+                  "modulo 5":"Back-end"
+         },
+         "SALON":"W1",
+         "HORARIO":1,
+         "TRAINER":None,
+         "CAMPERS":{},
+         "FECHAINICIO":fechaInicio,
+         "FECHAFINAL": fechaFinalizacion,  
+        },
+        "JAVA": {
+         "MODULOS":{
+             "MODULO1":"Fundamentos la programacion",
+                  "MODULO2":"Programacion Web",
+                  "MODULO3":"Programacion Formal",
+                  "MODULO4":"Bases de datos",
+                  "modulo 5":"Back-end"
+         },
+         "SALON":"W2",
+         "HORARIO":1,
+         "TRAINER":None,
+         "CAMPERS":{
+             "MODULO1":"Fundamentos la programacion",
+                  "MODULO2":"Programacion Web",
+                  "MODULO3":"Programacion Formal",
+                  "MODULO4":"Bases de datos",
+                  "modulo 5":"Back-end"
+         },
+         "FECHAINICIO":fechaInicio,
+         "FECHAFINAL": fechaFinalizacion,  
+        },
+        "NETCORE": {
+         "MODULOS":{
+             "MODULO1":"Fundamentos la programacion",
+                  "MODULO2":"Programacion Web",
+                  "MODULO3":"Programacion Formal",
+                  "MODULO4":"Bases de datos",
+                  "modulo 5":"Back-end"
+         },
+         "SALON":"W3",
+         "HORARIO":1,
+         "TRAINER":None,
+         "CAMPERS":{},
+         "FECHAINICIO":fechaInicio,
+         "FECHAFINAL": fechaFinalizacion,  
+        },  
+    }
+
+ js.InitJson(js.JSON_RUTAS, estructuraInicialRutas)
+
+
+
 def AgregarTrainer():
  print("""
         ---------------------------------------------------------
@@ -25,10 +100,11 @@ def AgregarTrainer():
         """)
  TrainerNuevo = {
      
-     "Nombre":Nombre(),
+     "NOMBRE":Nombre(),
      "CC":CC(),
-     "Direccion":Direccion(),
-     "Telefono":Telefono(), 
+     "DIRECCION":Direccion(),
+     "TELEFONO":Telefono(),
+     "RUTA": None 
      }
     
  Trainer={TrainerNuevo["CC"]:TrainerNuevo}
@@ -58,6 +134,7 @@ def CrearCuenta():
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
     js.UpdateJson(js.JSON_CUENTAS,cuenta,["CAMPERS"])
+    js.UpdateJson(js.JSON_NOTAS,OrdenRegistroNotas(cuentaNueva["CC"]))
     print("Cuenta creada exitosamente")
     print(cuentaNueva)
 
@@ -75,11 +152,7 @@ def Nombre():
  while True:
     clr()
     Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
-    if Nombre.isalpha() and len(Nombre) > 5:
-     return Nombre 
-    else:
-     print("El nombre y apellido esta mal creado, porfavor revisa tu sintaxis")
-     Oprimir()
+    return Nombre
    
 
 def CC():
@@ -88,7 +161,7 @@ def CC():
   cuentas=js.ReadJson(js.JSON_CUENTAS)
   clr()
   try:
-   cc=int(input("Porfavor ingrese su numero de cedula"))
+   cc=int(input("Porfavor ingrese su numero de cedula: "))
    if cc in cuentas:
     print("El valor registrado ya se encuentra en nuestra base de datos")
     Oprimir()
@@ -102,7 +175,7 @@ def Direccion():
  # Esta funcion permite ingresar la direccion del usuario
  while True:
   clr()
-  dir=str(input("Porfavor ingresa la direccion de residencia del camper"))
+  dir=str(input("Porfavor ingresa la direccion de residencia del camper: "))
   return dir
 
 def Acudiente():
@@ -110,11 +183,7 @@ def Acudiente():
  while True:
   clr()
   NomAcu=str(input("Porfavor ingrese el nombre del acudiente del camper: "))
-  if NomAcu.isdigit:
-   print("Valor no soportado, el nombre no puede contener numeros")
-   Oprimir()
-  else:
-   return NomAcu
+  return NomAcu
 
 def Telefono():
  # Esta funcion permite ingresar el telefono del usuario
@@ -212,7 +281,7 @@ def Login():
    contador = -1
    db=js.ReadJson(js.JSON_CUENTAS)
    while True:
-      if len(db) == -1:
+      if len(db) == 2:
          contador += 1
          
       print("""
@@ -222,14 +291,14 @@ def Login():
             """)
       if contador != 0:
          ContraseñaRegistrada =   input('Ingrese la contraseña del sistema: ')
-         if db["contraseñaadmin"] == ContraseñaRegistrada: 
-            pass
+         if db["contrasenaadmin"] == ContraseñaRegistrada: 
+            return
          else:
             print("Contraseña incorrecta")
             Oprimir()
       else:
          ContraseñaRegistrada = input('Registre la contraseña del sistema.\n Contraseña:  ')
-         js.UpdateJson(js.JSON_CUENTAS, {"contraseñaadmin":ContraseñaRegistrada})
+         js.UpdateJson(js.JSON_CUENTAS, {"contrasenaadmin":ContraseñaRegistrada})
          break
 
 def CambiarNota():
@@ -242,6 +311,15 @@ def VerNotas():
 
 def VerUsuarios():
  # Esta funcion permite ver los usuarios registrados en la aplicacion
+ dbCuentas= js.ReadJson(js.JSON_CUENTAS)
+ Cuentas= dbCuentas["CAMPERS"].keys()
+ print("Las rutas creadas son las siguientes:")
+ for i, f in Cuentas:
+   print(f"""
+         -------------------------
+         | {i}-{f}
+         -------------------------
+""")
  pass   
 
 def CambiarEstatus():
@@ -331,6 +409,7 @@ def TipoNota(modulo):
       except ValueError:
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
+         
 def TipoModulo():
    while True:
       try:
@@ -417,8 +496,10 @@ def RegistrarNotas():
             Oprimir()
       except ValueError:
          print('Error')
+
 def InitializeRutas():
    pass
+
 def NuevaRuta():
   # Esta funcion permite crear una nueva ruta
   while True:
@@ -434,13 +515,18 @@ def NuevaRuta():
       resultadoFunc=SalaEntrenamientoYHorario()
       salon= resultadoFunc(0)
       horario= resultadoFunc(1)
+      fechas=FechaFinal()
+      fechaInicio=fechas(0)
+      fechaFinalizacion=fechas(1)
       Ruta = {
       NomRuta():{
          "MODULOS":{Modulos()},
          "SALON":salon,
          "HORARIO":horario,
          "TRAINER":TrainerEncargado(),
-         "CAMPERS":{}
+         "CAMPERS":{},
+         "FECHAINICIO":fechaInicio,
+         "FECHAFINAL":fechaFinalizacion,
       }    
       }
       js.UpdateJson(js.JSON_RUTAS, Ruta)
@@ -453,11 +539,53 @@ def NuevaRuta():
          print("Opcion no valida, porfavor intente de nuevo")
          Oprimir()
 
+def FechaInicio():
+ while True: 
+  fecha= date.today()
+  print("Porfavor ingrese individualmente la fecha de inicio, siga el formato (Dia/Mes/Año)")
+  dia=int(input)
+  mes=int(input)
+  if dia > 28 and mes == 2 or dia > 31 or dia < 0 or mes > 12 or mes < 0:
+    print("La fecha ingresada es invalida, intentelo de nuevo")
+    Oprimir()
+    break
+  else:
+    pass 
+  año=int(input)
+  if año < fecha.year():
+    print("Error, la fecha ingresada no es valida")
+    Oprimir()
+    break
+  else: 
+    return dia, mes,año
+  
+def FechaFinal():
+ while True:
+   fechaInit=FechaInicio()
+   print("Porfavor ingrese individualmente la fecha de inicio, siga el formato (Dia/Mes/Año)")
+   dia=int(input)
+   mes=int(input)
+   if dia > 28 and mes == 2 or dia > 31 or dia < 0 or mes > 12 or mes < 0:
+      print("La fecha ingresada es invalida, intentelo de nuevo")
+      Oprimir()
+      break
+   else:
+      pass 
+   año=int(input)
+   if año < fechaInit(2):
+      print("Error, la fecha ingresada no es valida")
+      Oprimir()
+      break
+   else:
+     fechaFinal=f"{dia}/{mes}/{año}"
+     fechaInicial=f"{fechaInit(0)}/{fechaInit(1)}/{fechaInit(2)}"
+     return fechaInicial, fechaFinal  
+
 def Modulos():
   modulosDicc= {
        "Modulos": {
                   "MODULO1":"Fundamentos la programacion",
-                  "MODULO2":"Progrmacion Web",
+                  "MODULO2":"Programacion Web",
                   "MODULO3":"Programacion Formal",
                   "MODULO4":"Bases de datos",
                   "modulo 5":"Back-end"
@@ -469,7 +597,7 @@ def NomRuta():
  while True:
    clr()
    dbRutas = js.ReadJson(js.JSON_RUTAS)
-   NomRuta = str(input("Porfavor ingrese el nombre de la ruta que desea crear"))
+   NomRuta = str(input("Porfavor ingrese el nombre de la ruta que desea crear")).upper().strip()
    if NomRuta in dbRutas:
       print("Porfavor eliga otro nombre para la ruta este ya se encuentra asignado")
       Oprimir()
@@ -486,15 +614,20 @@ def SalaEntrenamientoYHorario():
       for i, x in dbRutas.items():
           if salon == x["SALON"] and horario == x["HORARIO"]:
             print(f"Lo sentimos este salon y horario ya se encuentra reservado para la ruta {i}")
+            Oprimir()
+            break
           else:
             salaYHorario=[salon,horario]
             return salaYHorario
+    else:
+      print("Porfavor elija un horario adecuado")
+      Oprimir()
 def TrainerEncargado():
   while True:
     clr()
     dbCuentas=js.ReadJson(js.JSON_CUENTAS)
-    trainer=str(input("Porfavor ingrese el numero de identifiacion del trainer encargado"))
-    if trainer in dbCuentas["Trainers"]:
+    trainer=str(input("Porfavor ingrese el numero de identifiacion del trainer encargado")).upper().strip()
+    if trainer in dbCuentas["TRAINERS"]:
       print("Trainer agregado correctamente")
       Oprimir()
       return trainer
