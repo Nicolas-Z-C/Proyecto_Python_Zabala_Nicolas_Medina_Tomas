@@ -20,12 +20,6 @@ if __name__ == "__main__":
  else:
    pass
  core.Login()
- if contador == True:
-   core.clr()
-   print("Al ser la primera vez porfavor ingrese los suigientes datos")
-   core.IniciarJsonRutas()
- else:
-   pass
  contador=False
  while True:
   core.clr()

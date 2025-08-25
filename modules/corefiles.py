@@ -149,7 +149,12 @@ def Nombre():
  while True:
     clr()
     Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
-    return Nombre
+    if Nombre == "":
+      print("El nombre no puede estar vacio")
+      Oprimir()
+      break
+    else:
+     return Nombre
    
 
 def CC():
@@ -172,14 +177,24 @@ def Direccion():
  # Esta funcion permite ingresar la direccion del usuario
  while True:
   clr()
-  dir=str(input("Porfavor ingresa la direccion de residencia del camper: "))
-  return dir
+  dire=str(input("Porfavor ingresa la direccion de residencia del camper: "))
+  if dire == "":
+      print("Porfavor ingrese una direccion valida")
+      Oprimir()
+      break
+ else:
+   return dire
 
 def Acudiente():
  # Esta funcion permite ingresar el nombre del acudiente del usuario
  while True:
   clr()
   NomAcu=str(input("Porfavor ingrese el nombre del acudiente del camper: "))
+  if NomAcu == "":
+      print("El nombre no puede estar vacio")
+      Oprimir()
+      break
+ else:
   return NomAcu
 
 def Telefono():
@@ -244,17 +259,6 @@ def EditarRiesgo(cc: str):
  if promedio < 60:
    db[cc]["Riesgo"] = "Alto"
    return
-
-def Rutainicial():
-  dbRutas=js.ReadJson(js.JSON_RUTAS)
-  rutas= dbRutas.keys()
-  ruta=str(input(f"""
------------------------------------
-Las rutas disponibles son: 
-{rutas}
-Elija una de estas porfavor:
------------------------------------
-"""))
   
 def Login():
  # Esta funcion permite iniciar sesion en la aplicacion
@@ -465,7 +469,6 @@ def RegistrarNotas():
    db=js.ReadJson(js.JSON_CUENTAS)
    OrdenRegistroNotas()
    while True:
-      IdCamper = random.randint(1000, 9999)
       try:
          Camper = input('Ingrese el documento del camper')
          if Camper in db:
@@ -475,9 +478,6 @@ def RegistrarNotas():
             Oprimir()
       except ValueError:
          print('Error')
-
-def InitializeRutas():
-   pass
 
 def NuevaRuta():
   # Esta funcion permite crear una nueva ruta
