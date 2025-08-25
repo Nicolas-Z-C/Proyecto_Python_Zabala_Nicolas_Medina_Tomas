@@ -88,8 +88,6 @@ def IniciarJsonRutas():
 
  js.InitJson(js.JSON_RUTAS, estructuraInicialRutas)
 
-
-
 def AgregarTrainer():
  print("""
         ---------------------------------------------------------
@@ -306,9 +304,20 @@ def VerUsuarios():
 """)
  pass   
 
-def CambiarEstatus():
- # Esta funcion permite cambiar el estatus del Camper
- pass   
+def EditarEstatus():
+ # Esta funcion permite editar el estatus de un camper
+ db = js.ReadJson(js.JSON_CUENTAS)
+ while True:
+   cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
+   if cc in db["CAMPERS"]: 
+      status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
+      db["CAMPERS"][cc]["ESTATUS"] = status 
+      js.UpdateJson(js.JSON_CUENTAS, db,)
+      return 
+   else:
+      print("La cedula ingresada no se encuentra registrada")
+      Oprimir() 
+"""
 def NotaPractica():
    # Agregrar nota de Practicas
    while True:
@@ -371,6 +380,7 @@ def NotaTotal():
    NotaTotal = (NotaPractica + NotaTeoria + NotaTrabajos) / 3
    NotaTotal = f"{NotaTotal:.1f}"
    return NotaTotal
+   
 def TipoNota(modulo):
    Notas = js.ReadJson(js.JSON_NOTAS)
    while True:
@@ -393,7 +403,7 @@ def TipoNota(modulo):
       except ValueError:
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
-         
+        
 def TipoModulo():
    while True:
       try:
@@ -421,6 +431,7 @@ def TipoModulo():
       except ValueError:
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
+         """
 def OrdenRegistroNotas(CC: str):
    notas = {
       CC: {
@@ -433,28 +444,28 @@ def OrdenRegistroNotas(CC: str):
                      "TOTAL": 0.0
                },
             "MODULO 2" : "PROGRAMACION WEB",
-               "NOTA":{
+               "NOTAMODULO2":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 3" : "PROGRAMACION FORMAL",
-               "NOTA":{
+               "NOTAMODULO3":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 4" : "BASE DE DATOS",
-               "NOTA":{
+               "NOTAMODULO4":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 5" : "back-end",
-               "NOTA":{
+               "NOTAMODULO5":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,

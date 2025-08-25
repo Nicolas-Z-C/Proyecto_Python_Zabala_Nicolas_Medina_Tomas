@@ -294,20 +294,6 @@ def Telefono():
      case _:
       Oprimir()
 
-def EditarEstatus():
- # Esta funcion permite editar el estatus de un camper
- db = ReadJson(JSON_CUENTAS)
- while True:
-   cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
-   if cc in db["CAMPERS"]: 
-      status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
-      db["CAMPERS"][cc]["ESTATUS"] = status 
-      UpdateJson(JSON_CUENTAS, db,)
-      return 
-   else:
-      print("La cedula ingresada no se encuentra registrada")
-      Oprimir()
-
 OrdenRegistroNotas(4)
 
 
