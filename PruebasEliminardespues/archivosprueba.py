@@ -158,33 +158,33 @@ def OrdenRegistroNotas(CC: str):
                      "TOTAL": 0.0
                },
             "MODULO 2" : "PROGRAMACION WEB",
-            "NOTA":{
+            "NOTA2":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 3" : "PROGRAMACION WEB",
-            "NOTA":{
+            "NOTA3":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 4" : "BASE DE DATOS",
-            "NOTA":{
+            "NOTA4":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
             },
             "MODULO 5" : "back-end",
-            "NOTA":{
+            "NOTA5":{
                      "TRABAJOS": 0,
                      "PRACTICA": 0,
                      "TEORIA": 0,
                      "TOTAL": 0.0                           
-            },
+            }
          }
       }
    }
