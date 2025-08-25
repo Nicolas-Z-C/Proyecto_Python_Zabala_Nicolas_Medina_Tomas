@@ -44,7 +44,7 @@ NotaPractica()
 diccionario = {'nota':NotaPractica()}
 print(diccionario)
 """
-def NotaPractica():
+"""def NotaPractica():
    nota = 100
    return nota
 def NotaTeoria():
@@ -59,4 +59,14 @@ NotaTeoria = NotaTeoria()
 NotaTrabajos = NotaTrabajos()
 NotaTotal = (NotaPractica + NotaTeoria + NotaTrabajos) / 3
 NotaTotal = f"{NotaTotal:.1f}"
-print(NotaTotal)
+print(NotaTotal)"""
+
+def suma(num1):
+   num2 = 12
+   suma = num1 + num2
+   print(suma)
+def valor():
+   num1 = 12
+   suma(num1)
+
+valor()

@@ -81,11 +81,10 @@ def RegistroNotas():
    notas = {}
    js.InitJson(js.JSON_NOTAS, notas)
    notas = {
-      CC(): {
-         RutaEstudiante(): {
+      "CC": {
+         "FSD": {
                "Modulos": {
-                  "modulo 1": {
-                     "Nombre": "Fundamentos la programacion",
+                  "modulo 1": "A",
                      "Notas": {
                            "Trabajos": NotaTrabajos(),
                            "Practica": NotaPractica(),
@@ -120,8 +119,7 @@ def RegistroNotas():
                            "Total": NotaTotal(),
                      }
                   },
-                  "modulo 5": {
-                     "Nombre": "Back-end",
+                  "modulo 5":"Back-end",
                      "Notas": {
                            "Trabajos": NotaTrabajos(),
                            "Practica": NotaPractica(),
@@ -131,6 +129,4 @@ def RegistroNotas():
                   }
                }
          }
-      }
-   }
    js.UpdateJson(js.JSON_NOTAS, notas)

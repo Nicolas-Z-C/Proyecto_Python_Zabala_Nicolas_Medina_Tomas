@@ -306,29 +306,25 @@ def NotaTotal():
    NotaPractica = NotaPractica()
    NotaTeoria = NotaTeoria()
    NotaTrabajos = NotaTrabajos()
-   NotaTotal = (NotaPractica + NotaTeorica + NotaTrabajos) / 3
+   NotaTotal = (NotaPractica + NotaTeoria + NotaTrabajos) / 3
    NotaTotal = f"{NotaTotal:.1f}"
    return NotaTotal
-def TipoNota():
+def TipoNota(modulo):
    Notas = js.ReadJson(js.JSON_NOTAS)
-   Modulo = TipoModulo
    while True:
       mn.MenuTipoNota()
       try:
          opcion = int(input('Ingrese la opcion que desee\nOpcion: '))
          match opcion:
             case 1:
-               opcion = "Teoria"
-               TipoNota = NotaTeoria()
-               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
-            case 2:   
-               opcion = "Practica"
-               TipoNota = NotaPractica()
-               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
+               NotaAsignada = NotaTeoria()
+               Notas[CC][modulo] = NotaAsignada
+            case 2:  
+               NotaAsignada = NotaPractica()
+               Notas[CC][modulo] = NotaAsignada
             case 3:
-               opcion = "Trabajos"
-               TipoNota = NotaTrabajos()
-               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
+               NotaAsignada = NotaTrabajos()
+               Notas[CC][modulo] = NotaAsignada
             case _:
                print('Opcion no disponible..')
                Oprimir()
@@ -342,76 +338,71 @@ def TipoModulo():
          opcion = int(input('Ingrese la opcion que desee\nOpcion: '))
          match opcion:
             case 1:
-               TipoNota()
+               modulo = "MODULO 1"
+               TipoNota(modulo)
             case 2:
-               TipoNota()
+               modulo = "MODULO 2"
+               TipoNota(modulo)
             case 3:
-               TipoNota()
+               modulo = "MODULO 3"
+               TipoNota(modulo)
             case 4:
-               TipoNota()
+               modulo = "MODULO 4"
+               TipoNota(modulo)
             case 5:
-               TipoNota()
+               modulo = "MODULO 5"
+               TipoNota(modulo)
             case _:
                print('La opcion ingresada no esta disponible.')
                Oprimir()
       except ValueError:
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
-def OrdenRegistroNotas():
+def OrdenRegistroNotas(CC: str):
    notas = {
-      0: {
-         'ruta': {
-               "Modulos": {
-                  "modulo 1": {
-                     "Nombre": "Fundamentos la programacion",
-                     "Notas": {
-                           "Trabajos": 0,
-                           "Practica": 0,
-                           "Teoria": 0,
-                           "Total": 0.0,
-                     }
-                  },
-                  "modulo 2": {
-                     "Nombre": "Progrmacion Web",
-                     "Notas": {
-                           "Trabajos": 0,
-                           "Practica": 0,
-                           "Teoria": 0,
-                           "Total": 0.0,
-                     }
-                  },
-                  "modulo 3": {
-                     "Nombre": "Programacion Formal",
-                     "Notas": {
-                           "Trabajos": 0,
-                           "Practica": 0,
-                           "Teoria": 0,
-                           "Total": 0.0,
-                     }
-                  },
-                  "modulo 4": {
-                     "Nombre": "Bases de datos",
-                     "Notas": {
-                           "Trabajos": 0,
-                           "Practica": 0,
-                           "Teoria": 0,
-                           "Total": 0.0,
-                     }
-                  },
-                  "modulo 5": {
-                     "Nombre": "Back-end",
-                     "Notas": {
-                           "Trabajos": 0,
-                           "Practica": 0,
-                           "Teoria": 0,
-                           "Total": 0.0,
-                     }
-                  }
-               }
+      CC: {
+         "MODULOS": {
+            "MODULOS 1": "FUNDAMENTOS DE LA PROGRAMACION",
+               "NOTAS": {
+                     "TRABAJOS": 0,
+                     "PRACTICA": 0,
+                     "TEORIA": 0,
+                     "TOTAL": 0.0
+               },
+            "MODULO 2" : "PROGRAMACION WEB",
+               "NOTA":{
+                     "TRABAJOS": 0,
+                     "PRACTICA": 0,
+                     "TEORIA": 0,
+                     "TOTAL": 0.0                           
+            },
+            "MODULO 3" : "PROGRAMACION FORMAL",
+               "NOTA":{
+                     "TRABAJOS": 0,
+                     "PRACTICA": 0,
+                     "TEORIA": 0,
+                     "TOTAL": 0.0                           
+            },
+            "MODULO 4" : "BASE DE DATOS",
+               "NOTA":{
+                     "TRABAJOS": 0,
+                     "PRACTICA": 0,
+                     "TEORIA": 0,
+                     "TOTAL": 0.0                           
+            },
+            "MODULO 5" : "back-end",
+               "NOTA":{
+                     "TRABAJOS": 0,
+                     "PRACTICA": 0,
+                     "TEORIA": 0,
+                     "TOTAL": 0.0                           
+            },
          }
       }
    }
+   
    js.InitJson(js.JSON_NOTAS, notas)
+pass
 def RegistrarNotas():
    db=js.ReadJson(js.JSON_CUENTAS)
    OrdenRegistroNotas()
