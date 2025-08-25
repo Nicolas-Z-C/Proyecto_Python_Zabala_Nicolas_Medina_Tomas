@@ -1,5 +1,6 @@
 import os
 import time
+import random
 import modules.json as js 
 import modules.menufiles as mn
 #Inicio de las funciones de la aplicacion
@@ -159,9 +160,9 @@ def Estatus():
 
 def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
- db = js.ReadJson(js.JSON_CUENTAS)
+ db = js.ReadJson(js)
  while True:
-   cc=str(input("Porfavor ingrese la CC del estudiante que desea editar"))
+   cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
    if cc in db: 
       status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
       db[cc]["Estatus"] == status
@@ -246,55 +247,164 @@ def VerUsuarios():
 def CambiarEstatus():
  # Esta funcion permite cambiar el estatus del Camper
  pass   
-
-def RegistroNotas():
+def NotaPractica():
+   # Agregrar nota de Practicas
+   while True:
+      try:
+         clr()
+         nota = int(input('Ingrese la nota de las Practicas del Camper\nLa nota debe ser de (0 a 100)\nNota: '))
+         if 0<= nota <=100:
+            print('La nota fue Agregada correctamente.')
+            return nota
+         else:
+            clr()
+            print('La nota solo debe ser de (0 a 100)\nPor favor Ingresar un numero dentro del rango')
+            Oprimir()
+      except ValueError:
+         clr()
+         print('Error: El dato ingresado solo pueden ser NUMEROS ENTEROS.')
+         Oprimir()
+         
+def NotaTeoria():
+   # Agregrar nota de la Teoria del camper
+   while True:
+      try:
+         clr()
+         nota = int(input('Ingrese la nota Teorica del Camper\nLa nota debe ser de (0 a 100)\nNota: '))
+         if 0<= nota <=100:
+            print('La nota fue Agregada correctamente.')
+            return nota
+         else:
+            clr()
+            print('La nota solo debe ser de (0 a 100)\nPor favor Ingresar un numero dentro del rango')
+            Oprimir()
+      except ValueError:
+         clr()
+         print('Error: El dato ingresado solo pueden ser NUMEROS ENTEROS.')
+         Oprimir()
+         
+def NotaTrabajos():
+   # Agregrar nota de los trabajos del camper
+   while True:
+      try:
+         clr()
+         nota = int(input('Ingrese la nota del Trabajo del Camper\nLa nota debe ser de (0 a 100)\nNota: '))
+         if 0<= nota <=100:
+            print('La nota fue Agregada correctamente.')
+            return nota
+         else:
+            clr()
+            print('La nota solo debe ser de (0 a 100)\nPor favor Ingresar un numero dentro del rango')
+            Oprimir()
+      except ValueError:
+         clr()
+         print('Error: El dato ingresado solo pueden ser NUMEROS ENTEROS.')
+         Oprimir()
+         
+def NotaTotal():
+   # hace la ecuacion de la nota total del camper
+   NotaPractica = NotaPractica()
+   NotaTeoria = NotaTeoria()
+   NotaTrabajos = NotaTrabajos()
+   NotaTotal = (NotaPractica + NotaTeorica + NotaTrabajos) / 3
+   NotaTotal = f"{NotaTotal:.1f}"
+   return NotaTotal
+def TipoNota():
+   Notas = js.ReadJson(js.JSON_NOTAS)
+   Modulo = TipoModulo
+   while True:
+      mn.MenuTipoNota()
+      try:
+         opcion = int(input('Ingrese la opcion que desee\nOpcion: '))
+         match opcion:
+            case 1:
+               opcion = "Teoria"
+               TipoNota = NotaTeoria()
+               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
+            case 2:   
+               opcion = "Practica"
+               TipoNota = NotaPractica()
+               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
+            case 3:
+               opcion = "Trabajos"
+               TipoNota = NotaTrabajos()
+               Notas["cc"]["Ruta"]["Modulos"]["Notas"][opcion] = TipoNota
+            case _:
+               print('Opcion no disponible..')
+               Oprimir()
+      except ValueError:
+         print('Error: Solo se pueden ingresar numeros..')
+         Oprimir()
+def TipoModulo():
+   while True:
+      try:
+         mn.Modulos()
+         opcion = int(input('Ingrese la opcion que desee\nOpcion: '))
+         match opcion:
+            case 1:
+               TipoNota()
+            case 2:
+               TipoNota()
+            case 3:
+               TipoNota()
+            case 4:
+               TipoNota()
+            case 5:
+               TipoNota()
+            case _:
+               print('La opcion ingresada no esta disponible.')
+               Oprimir()
+      except ValueError:
+         print('Error: Solo se pueden ingresar numeros..')
+         Oprimir()
+def OrdenRegistroNotas():
    notas = {
-      CC: {
-         RutaEstudiante(): {
+      0: {
+         'ruta': {
                "Modulos": {
                   "modulo 1": {
                      "Nombre": "Fundamentos la programacion",
                      "Notas": {
-                           "Trabajos": NotaTrabajos(),
-                           "Practica": None,
-                           "Teoria": None,
-                           "Total": None,
+                           "Trabajos": 0,
+                           "Practica": 0,
+                           "Teoria": 0,
+                           "Total": 0.0,
                      }
                   },
                   "modulo 2": {
                      "Nombre": "Progrmacion Web",
                      "Notas": {
-                           "Trabajos": None,
-                           "Practica": None,
-                           "Teoria": None,
-                           "Total": None,
+                           "Trabajos": 0,
+                           "Practica": 0,
+                           "Teoria": 0,
+                           "Total": 0.0,
                      }
                   },
                   "modulo 3": {
                      "Nombre": "Programacion Formal",
                      "Notas": {
-                           "Trabajos": None,
-                           "Practica": None,
-                           "Teoria": None,
-                           "Total": None,
+                           "Trabajos": 0,
+                           "Practica": 0,
+                           "Teoria": 0,
+                           "Total": 0.0,
                      }
                   },
                   "modulo 4": {
                      "Nombre": "Bases de datos",
                      "Notas": {
-                           "Trabajos": None,
-                           "Practica": None,
-                           "Teoria": None,
-                           "Total": None,
+                           "Trabajos": 0,
+                           "Practica": 0,
+                           "Teoria": 0,
+                           "Total": 0.0,
                      }
                   },
                   "modulo 5": {
                      "Nombre": "Back-end",
                      "Notas": {
-                           "Trabajos": None,
-                           "Practica": None,
-                           "Teoria": None,
-                           "Total": None,
+                           "Trabajos": 0,
+                           "Practica": 0,
+                           "Teoria": 0,
+                           "Total": 0.0,
                      }
                   }
                }
@@ -302,6 +412,20 @@ def RegistroNotas():
       }
    }
    js.InitJson(js.JSON_NOTAS, notas)
+def RegistrarNotas():
+   db=js.ReadJson(js.JSON_CUENTAS)
+   OrdenRegistroNotas()
+   while True:
+      IdCamper = random.randint(1000, 9999)
+      try:
+         Camper = input('Ingrese el documento del camper')
+         if Camper in db:
+            TipoModulo()
+         else:
+            print('Camper no encontrado..')
+            Oprimir()
+      except ValueError:
+         print('Error')
 def InitializeRutas():
    pass
 def NuevaRuta():
@@ -404,60 +528,7 @@ def AgregarRuta():
    pass
 def BorrarRuta():
  # Esta funcion permite borrar una ruta
- pass 
-def NotraTrabajos():
-   dbNotas=js.ReadJson(js.JSON_NOTAS)
-   notaTrabajo = int(input('Ingrese la nota del trabajo: '))
-   
-
-def AgregarNota():
-   db=js.ReadJson(js.JSON_NOTAS)
-   while True:
-      try:
-         Estudiante = input('Ingrese el documento de identidad del estudiante:')
-         if Estudiante in db[CC]:
-            print('Estudiante registrado.')
-            input('Precione una tecla para continuar..')
-            mn.MenuRutaEstudiante()
-            Opc = input('Ingrese la opcion que desee: ')
-            match Opc:
-               case '1':
-                  print("""
-                  -----------------------------------------
-                        Fundamentos de la Programacion
-                  -----------------------------------------
-                        """)
-                  print(f'\nLa nota actual del Estudiante {} es: {}')
-                  NotaTrabajos()
-               case '2':
-                  print("""
-                  -----------------------------------------
-                        Fundamentos de la Programacion
-                  -----------------------------------------
-                        """)
-               case '3':
-                  print("""
-                  -----------------------------------------
-                        Fundamentos de la Programacion
-                  -----------------------------------------
-                        """)
-               case '4':
-                  print("""
-                  -----------------------------------------
-                        Fundamentos de la Programacion
-                  -----------------------------------------
-                        """)
-               case '5':
-                  print("""
-                  -----------------------------------------
-                        Fundamentos de la Programacion
-                  -----------------------------------------
-                        """)
-               case _:
-                  pass
-      except ValueError:
-         Oprimir()      
-   
+ pass    
 
 def EliminarDeRuta():
  # Esta funcion permite eliminar un camper de una ruta
