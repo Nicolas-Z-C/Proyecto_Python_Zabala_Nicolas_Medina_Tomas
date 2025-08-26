@@ -20,7 +20,42 @@ def MainMenu():
        11. Salir   
     --------------------------------------------
     """)
+
+def MenuGestorCuentas():
+    print("""
+    --------------------------------------------
+        **** Menu Gesto De Cuentas ****       
+    --------------------------------------------
+        1. Crear Cuenta (Camper)
+        2. Crear Cuenta (Trainer)  
+        3. Cambiar Estatus Camper
+        4. Borrar Cuenta(Camper)
+        5. Borrar Cuenta(Camper) 
+        6. Salir   
+    --------------------------------------------
+    """)
+
+def MenuGestorAcademico():
+    print("""
+    --------------------------------------------
+        **** Menu Academico ****       
+    --------------------------------------------
+        1. Registrar Notas
+        2. Cambiar Notas
+        3. Matricular Campers
+        4. Crear Nueva Ruta   
+    --------------------------------------------
+    """)
+
+def Reportes():
+    print("""
+    --------------------------------------------
+        **** Menu Reportes ****       
+    --------------------------------------------
     
+       
+    --------------------------------------------
+    """)    
 def Modulos():
     core.clr()    
     print("""
