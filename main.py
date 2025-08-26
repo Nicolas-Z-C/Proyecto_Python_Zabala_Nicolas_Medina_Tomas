@@ -39,7 +39,7 @@ if __name__ == "__main__":
             case 3:
               core.EditarEstatus()
             case 4:
-              core.EditarEstatus()
+              core.EditarEstatusTrainer()
             case 5:
               print('Saliendo del sistema...')
               break
@@ -54,14 +54,12 @@ if __name__ == "__main__":
             case 1:
               core.RegistrarNotas()
             case 2:
-              core.CambiarNota()
-            case 3:
               core.AgregarARuta()
-            case 4:
+            case 3:
               core.NuevaRuta()
-            case 5:
+            case 4:
               print('Saliendo del sistema...')
-              break
+              break  
             case _:
               print('Opcion ingresada no disponible..')
               core.Oprimir()

@@ -20,9 +20,9 @@ def MenuGestorCuentas():
 |         Gestor Cuentas          |
 -----------------------------------
 |   1. Crear Cuenta Camper        |
-|   2. Crear Cuenta Traine        |
+|   2. Crear Cuenta Trainer       |
 |   3. Cambiar Estatus Camper     |
-|   4. Cambiar Estatus Trainer    |
+|   5. Cambiar Estatus Trainer    |
 |   4. Salir                      |                        
 -----------------------------------
           """)
@@ -33,10 +33,10 @@ def MenuGestorAcademico():
 |        Gestor Academico         |
 -----------------------------------
 |   1. Registrar Notas Campers    |
-|   2. Cambiar Notas Campers      |
-|   3. Matriculas Campers         |
-|   4. Nueva Ruta                 |
-|   5. Salir                      |                        
+|   2. Matriculas Campers         |
+|   3. Nueva Ruta                 |
+|   4. Salir                      |
+|                                 |                        
 -----------------------------------
 
           """)

@@ -80,7 +80,7 @@ def AgregarTrainer():
      "DIRECCION":Direccion(),
      "TELEFONO":Telefono(),
      "RUTA": [],
-     "ESTADO": "ACTIVO"  
+     "ESTADO": "CONTRATADO"  
      }
     
  Trainer={TrainerNuevo["CC"]:TrainerNuevo}
@@ -97,7 +97,7 @@ def CrearCuenta():
         """)
     cuentaNueva = {
      
-     "Nombre":Nombre(),
+     "NOMBRE":Nombre(),
      "CC":CC(),
      "DIRECCION":Direccion(),
      "ACUDIENTE":Acudiente(),
@@ -109,7 +109,6 @@ def CrearCuenta():
     
     cuenta={cuentaNueva["CC"]:cuentaNueva}
     js.UpdateJson(js.JSON_CUENTAS,cuenta,["CAMPERS"])
-    js.UpdateJson(js.JSON_NOTAS,OrdenRegistroNotas(cuentaNueva["CC"]))
     print("Cuenta creada exitosamente")
     print(cuentaNueva)
     try:
@@ -149,14 +148,7 @@ def CC():
   clr()
   try:
    cc=int(input("Porfavor ingrese su numero de cedula: "))
-   if not cc.strip():
-      raise ValueError("El Numero de cedula no puede estar vacío.")
-      Oprimir()
-   elif cc in cuentas:
-    print("El valor registrado ya se encuentra en nuestra base de datos")
-    Oprimir()
-   else:
-    return cc
+   return cc
   except ValueError:
    print("Solo se pueden ingresar numeros")
    Oprimir()
@@ -218,10 +210,13 @@ def Telefono():
     except ValueError:
        print('Error: Solo se pueden ingresar numeros.')
        Oprimir()
+
 def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
  db = js.ReadJson(js.JSON_CUENTAS)
  while True:
+   clr()
+   VerUsuarios()
    cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
    if cc in db: 
       status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
@@ -268,6 +263,7 @@ def Login():
          ContraseñaRegistrada = input('Registre la contraseña del sistema.\n Contraseña:  ')
          js.UpdateJson(js.JSON_CUENTAS, {"contrasenaadmin":ContraseñaRegistrada})
          break
+
 def VerNotas():
  # Esta funcion permite ver las notas del Camper
  dbNotas=js.ReadJson(js.JSON_NOTAS)
@@ -285,15 +281,16 @@ def VerNotas():
    except ValueError:
      print("Valor no soportado")
      Oprimir()
+
 def VerUsuarios():
  # Esta funcion permite ver los usuarios registrados en la aplicacion
  dbCuentas= js.ReadJson(js.JSON_CUENTAS)
- Cuentas= dbCuentas["CAMPERS"].keys()
- print("Las rutas creadas son las siguientes:")
+ Cuentas= dbCuentas["CAMPERS"]
+ print("Los campers registrados son las siguientes:")
  for i, f in Cuentas:
    print(f"""
          -------------------------
-         | {i}-{f}
+         | {i}-{f["NOMBRE"]}
          -------------------------
 """)
  pass   
@@ -311,14 +308,16 @@ def VerTrainer():
 """)
  pass   
 
-def EditarEstatus():
+def EditarEstatusTrainer():
  # Esta funcion permite editar el estatus de un camper
  db = js.ReadJson(js.JSON_CUENTAS)
  while True:
-   cc=str(input("Por favor ingrese la CC del estudiante que desea editar: "))
-   if cc in db["CAMPERS"]: 
-      status=str(input("Ahora ingrese el nuevo estatus del estudiante(APROVADO|EXPULSADO|CURSANDO): "))
-      db["CAMPERS"][cc]["ESTATUS"] = status 
+   clr()
+   VerTrainer()
+   cc=str(input("Por favor ingrese la CC del trainer que desea editar: "))
+   if cc in db["TRAINERS"]: 
+      status=str(input("Ahora ingrese el nuevo estatus del trainer(EXPULSADO|CONTRATADO): "))
+      db["TRAINERS"][cc]["ESTATUS"] = status 
       js.UpdateJson(js.JSON_CUENTAS, db,)
       return 
    else:
@@ -505,12 +504,11 @@ def CambiarNota():
    
 def RegistrarNotas():
    db=js.ReadJson(js.JSON_CUENTAS)
-   OrdenRegistroNotas()
    while True:
       mn.TitulasRegistroNotas()
       try:
          Camper = input('Ingrese el documento del camper')
-         if Camper in db["CC"]:
+         if Camper in db["CAMPERS"]:
             TipoModulo(Camper)
          else:
             print('Camper no encontrado..')
@@ -677,6 +675,7 @@ def AgregarARuta():
              while True:
                clr()
                VerRutas()
+               OrdenRegistroNotas(cc)
                ruta=str(input("Ingrese el nombre de la ruta al que desea agregar al camper: ")).upper().strip()
                if len(dbRutas[ruta]["CAMPERS"]) >= 33:
                   print(f"La ruta {ruta} se encuentra en su maxima capacidad")
@@ -739,9 +738,9 @@ def CampersInscritos():
  # Esta funcion permite ver los campers inscritos
  campers=[]
  dbCuentas=js.ReadJson(js.JSON_CUENTAS)
- for i in dbCuentas["CAMPERS"]:
+ for f, i in dbCuentas["CAMPERS"].items():
    if i["ESTATUS"]=="INSCRITO":
-      campers.append(i)
+      campers.append(i["NOMBRE"],i["CC"])
    else:
      pass  
  print(f"Los campers inscritos son {campers}")      
@@ -750,9 +749,9 @@ def CampersAprobados():
  # Esta funcion permite ver los campers aprobados
  campers=[]
  dbCuentas=js.ReadJson(js.JSON_CUENTAS)
- for i in dbCuentas["CAMPERS"]:
+ for f, i in dbCuentas["CAMPERS"]:
    if i["ESTATUS"]=="APROVADO":
-      campers.append(i)
+      campers.append(i["NOMBRE"],i["CC"])
    else:
      pass  
  print(f"Los campers aprovados son {campers}\nestos ya pueden ser inscritos a una ruta") 
@@ -762,9 +761,9 @@ def Trainers():
  # Esta funcion permite ver los trainers registrados
  trainers=[]
  dbCuentas=js.ReadJson(js.JSON_CUENTAS)
- for i in dbCuentas["TRAINERS"]:
+ for f, i in dbCuentas["TRAINERS"]:
    if i["ESTATUS"]=="ACTIVO":
-      trainers.append(i)
+      trainers.append(i["NOMBRE"],i["CC"])
    else:
      pass  
  print(f"Los trainers activos son: {trainers}") 
@@ -776,7 +775,7 @@ def CampersBajoRendimiento():
  camperBajo=[]
  for x, i in dbCuentas["CAMPERS"]:
    if i["RIESGO"] == "ALTO":
-     camperBajo.append(x)
+     camperBajo.append(i["NOMBRE"],i["CC"])
    else:
      continue 
  print(f"Estos son los estudiantes de riesgo ALTO")     
@@ -795,7 +794,8 @@ def CampersYTrainersMismaRuta():
       for idx, x in enumerate(dbRutas[ruta]["CAMPERS"]):
          print(f"{idx}, Estudiante: {x}")
       print("\n")
-      print(F"Trainer encargado: {dbRutas[ruta]["TRAINER"]}")  
+      trainer=dbRutas[ruta]["TRAINER   "]
+      print(f"Trainer encargado: {trainer}")  
       Oprimir()
       return 
    else:

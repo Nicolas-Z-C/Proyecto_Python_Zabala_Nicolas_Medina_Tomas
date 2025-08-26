@@ -26,7 +26,7 @@ def UpdateJson(file_path: str, data: Dict, path: Optional[list[str]] = None) -> 
         current = CurrentData
         for key in path[:-1]:
             current = current.setdefault(key, {})
-        current.setdefault(path[:-1], {}).update(data)
+        current.setdefault(path[-1], {}).update(data)
     WriteJson(file_path, CurrentData)
 
 def InitJson(file_path: str, initial_structure: Dict) -> None:
