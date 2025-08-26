@@ -39,7 +39,9 @@ def IniciarJsonRutas():
          "TRAINER":TrainerEncargado("NODEJS"),
          "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
-         "FECHAFINAL": fechaFinalizacion,  
+         "FECHAFINAL": fechaFinalizacion,
+         "CAMPERSAPROVADOS": 0,
+         "CAMPERSNOAPROVADOS": 0,    
         },
         "JAVA": {
          "SALON":"W2",
@@ -47,7 +49,9 @@ def IniciarJsonRutas():
          "TRAINER":TrainerEncargado("JAVA"),
          "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
-         "FECHAFINAL": fechaFinalizacion,  
+         "FECHAFINAL": fechaFinalizacion,
+         "CAMPERSAPROVADOS": 0,
+         "CAMPERSNOAPROVADOS": 0,    
         },
         "NETCORE": {
          "SALON":"W3",
@@ -55,7 +59,9 @@ def IniciarJsonRutas():
          "TRAINER":TrainerEncargado("NETCORE"),
          "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
-         "FECHAFINAL": fechaFinalizacion,  
+         "FECHAFINAL": fechaFinalizacion,
+         "CAMPERSAPROVADOS": 0,
+         "CAMPERSNOAPROVADOS": 0,  
         },  
     }
 
@@ -121,10 +127,10 @@ def Nombre():
  while True:
     clr()
     Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
-    if Nombre == "":
+    if not Nombre:
       print("El nombre no puede estar vacio")
       Oprimir()
-      break
+      continue
     else:
      return Nombre
    
@@ -150,11 +156,11 @@ def Direccion():
  while True:
   clr()
   dire=str(input("Porfavor ingresa la direccion de residencia del camper: "))
-  if dire == "":
+  if not dire:
       print("Porfavor ingrese una direccion valida")
       Oprimir()
-      break
- else:
+      continue
+  else:
    return dire
 
 def Acudiente():
@@ -162,12 +168,12 @@ def Acudiente():
  while True:
   clr()
   NomAcu=str(input("Porfavor ingrese el nombre del acudiente del camper: "))
-  if NomAcu == "":
+  if not NomAcu:
       print("El nombre no puede estar vacio")
       Oprimir()
-      break
- else:
-  return NomAcu
+      continue
+  else:
+   return NomAcu
 
 def Telefono():
  # Esta funcion permite ingresar el telefono del usuario
@@ -255,7 +261,21 @@ def CambiarNota():
 
 def VerNotas():
  # Esta funcion permite ver las notas del Camper
- pass
+ dbNotas=js.ReadJson(js.JSON_NOTAS)
+ while True:
+   try:
+      cc=int(input("Ingrese la cedula del camper al que desea mirar las notas: "))
+      if cc in dbNotas:
+         print(dbNotas[cc])
+         Oprimir()
+         return
+      else:
+        print("El camper requerido no se encuentra en nuestra base de datos")
+        Oprimir()
+        continue
+   except ValueError:
+     print("Valor no soportado")
+     Oprimir()
 
 def VerUsuarios():
  # Esta funcion permite ver los usuarios registrados en la aplicacion
@@ -287,9 +307,9 @@ def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
  db = js.ReadJson(js.JSON_CUENTAS)
  while True:
-   cc=str(input("Por favor ingrese la CC del estudiante que desea editar"))
+   cc=str(input("Por favor ingrese la CC del estudiante que desea editar: "))
    if cc in db["CAMPERS"]: 
-      status=str(input("Ahora ingrese el nuevo estatus del estudiante"))
+      status=str(input("Ahora ingrese el nuevo estatus del estudiante(APROVADO|EXPULSADO|CURSANDO): "))
       db["CAMPERS"][cc]["ESTATUS"] = status 
       js.UpdateJson(js.JSON_CUENTAS, db,)
       return 
@@ -507,6 +527,8 @@ def NuevaRuta():
          "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL":fechaFinalizacion,
+         "CAMPERSAPROVADOS": 0,
+         "CAMPERSNOAPROVADOS": 0,  
       }    
       }
       js.UpdateJson(js.JSON_RUTAS, Ruta)
@@ -639,6 +661,7 @@ def AgregarARuta():
                else:
                  dbRutas[ruta]["CAMPERS"].append(cc)
                  dbCuentas["CAMPERS"][cc]["RUTA"] = ruta
+                 dbCuentas["CAMPERS"][cc]["ESTATUS"] = "CURSANDO"
                  print(f"El camper identificado con {cc} a sido correctamente agregado a la ruta {ruta}")
                  js.UpdateJson(js.JSON_RUTAS, dbRutas)
                  return
@@ -687,19 +710,42 @@ def EliminarDeRuta():
       except:
         print("Ingrese solo numeros porfavor")
         Oprimir
- pass
 
 def CampersInscritos():
- # Esta funcion permite ver los campers inscritos 
- pass
+ # Esta funcion permite ver los campers inscritos
+ campers=[]
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ for i in dbCuentas["CAMPERS"]:
+   if i["ESTATUS"]=="INSCRITO":
+      campers.append(i)
+   else:
+     pass  
+ print(f"Los campers inscritos son {campers}")      
 
 def CampersAprobados():
  # Esta funcion permite ver los campers aprobados
- pass
+ campers=[]
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ for i in dbCuentas["CAMPERS"]:
+   if i["ESTATUS"]=="APROVADO":
+      campers.append(i)
+   else:
+     pass  
+ print(f"Los campers aprovados son {campers}\nestos ya pueden ser inscritos a una ruta") 
+ Oprimir()
 
 def Trainers():
  # Esta funcion permite ver los trainers registrados
- pass
+ trainers=[]
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ for i in dbCuentas["TRAINERS"]:
+   if i["ESTATUS"]=="ACTIVO":
+      trainers.append(i)
+   else:
+     pass  
+ print(f"Los trainers activos son: {trainers}") 
+ Oprimir()
+ 
 
 def CampersBajoRendimiento():
  # Esta funcion permite ver los campers con bajo rendimiento
