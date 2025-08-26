@@ -37,7 +37,7 @@ def IniciarJsonRutas():
          "SALON":"W1",
          "HORARIO":1,
          "TRAINER":TrainerEncargado("NODEJS"),
-         "CAMPERS":{},
+         "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
         },
@@ -45,7 +45,7 @@ def IniciarJsonRutas():
          "SALON":"W2",
          "HORARIO":1,
          "TRAINER":TrainerEncargado("JAVA"),
-         "CAMPERS":{},
+         "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
         },
@@ -53,7 +53,7 @@ def IniciarJsonRutas():
          "SALON":"W3",
          "HORARIO":1,
          "TRAINER":TrainerEncargado("NETCORE"),
-         "CAMPERS":{},
+         "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL": fechaFinalizacion,  
         },  
@@ -73,7 +73,8 @@ def AgregarTrainer():
      "CC":CC(),
      "DIRECCION":Direccion(),
      "TELEFONO":Telefono(),
-     "RUTA": None 
+     "RUTA": [],
+     "ESTADO": "ACTIVO"  
      }
     
  Trainer={TrainerNuevo["CC"]:TrainerNuevo}
@@ -174,11 +175,11 @@ def Telefono():
     clr()
     op = input("""
     --------------------------------------------------------------------
-    | Ingrese porfavor el tipo de telefono que se registrara al camper |
-    |                                                                  |
-    | 1. Movil                                                         |
-    | 2. Fijo                                                          |
-    |                                                                  |
+    | Ingrese porfavor el tipo de telefono que se registrara al camper 
+    |                                                                  
+    | 1. Movil                                                         
+    | 2. Fijo                                                          
+    |                                                                  
     --------------------------------------------------------------------        
     : """)
     match op: 
@@ -503,7 +504,7 @@ def NuevaRuta():
          "SALON":salon,
          "HORARIO":horario,
          "TRAINER":TrainerEncargado(nombreRuta),
-         "CAMPERS":{},
+         "CAMPERS":[],
          "FECHAINICIO":fechaInicio,
          "FECHAFINAL":fechaFinalizacion,
       }    
@@ -598,6 +599,8 @@ def TrainerEncargado(Ruta:str):
     trainer=str(input(f"Porfavor ingrese el numero de identifiacion del trainer encargado al la ruta {Ruta}")).strip()
     if trainer in dbCuentas["TRAINERS"]:
       print("Trainer agregado correctamente")
+      dbCuentas["TRAINERS"][trainer]["RUTA"].append(Ruta) 
+      js.UpdateJson(js.JSON_CUENTAS, dbCuentas)
       Oprimir()
       return trainer
     else:
@@ -617,14 +620,73 @@ def VerRutas():
 """)
  pass
 
-def AgregarRuta():
-   pass
+def AgregarARuta():
+   dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+   dbRutas=js.ReadJson(js.JSON_RUTAS)
+   while True:
+      try:
+         cc = int(input("Porfavor ingrese el numero de cedula del camper al que desea agregar"))
+         if cc in dbCuentas["CAMPERS"]:
+           if dbCuentas["CAMPERS"][cc]["ESTATUS"] == "APROVADO":
+             while True:
+               clr()
+               VerRutas()
+               ruta=str(input("Ingrese el nombre de la ruta al que desea agregar al camper: ")).upper().strip()
+               if len(dbRutas[ruta]["CAMPERS"]) >= 33:
+                  print(f"La ruta {ruta} se encuentra en su maxima capacidad")
+                  Oprimir()
+                  break
+               else:
+                 dbRutas[ruta]["CAMPERS"].append(cc)
+                 dbCuentas["CAMPERS"][cc]["RUTA"] = ruta
+                 print(f"El camper identificado con {cc} a sido correctamente agregado a la ruta {ruta}")
+                 js.UpdateJson(js.JSON_RUTAS, dbRutas)
+                 return
+      except:
+        print("Ingrese solo numeros porfavor")
+        Oprimir
+
 def BorrarRuta():
  # Esta funcion permite borrar una ruta
- pass    
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ dbRutas=js.ReadJson(js.JSON_RUTAS)
+ while True:
+   clr()
+   VerRutas()
+   ruta = str(input("Ingrese el nombre de la ruta que desea eliminar: ")).strip().upper()
+   if ruta in dbRutas:
+      trainer= dbRutas[ruta]["TRAINER"]
+      for i in dbRutas[ruta]["CAMPER"]:
+         dbCuentas["CAMPERS"][i]["RUTA"] = None
+      index=dbCuentas["TRAINER"][trainer]["RUTA"].index(ruta)
+      del dbCuentas["TRAINER"][trainer]["RUTA"][index]  
+      print(f"La ruta {ruta} ha sido eliminada correctamente")
+      Oprimir()
+      return  
+   else: 
+      print(f"La ruta {ruta} no ha sido encontrada")
+      Oprimir() 
 
 def EliminarDeRuta():
  # Esta funcion permite eliminar un camper de una ruta
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ dbRutas=js.ReadJson(js.JSON_RUTAS)
+ while True:
+      try:
+         cc = int(input("Porfavor ingrese el numero de cedula del camper al que desea eliminar de la ruta en la que se encuentra actualmente")).strip().upper()
+         if cc in dbCuentas["CAMPERS"]:
+           if dbCuentas["CAMPERS"][cc]["ESTATUS"] == "CURSANDO":
+             while True:
+               clr()
+               ruta=dbCuentas["CAMPERS"][cc]["RUTA"]
+               dbCuentas["CAMPERS"][cc]["RUTA"] = None
+               dbRutas[ruta]["CAMPERS"].append(cc)
+               print(f"El camper identificado con {cc} a sido correctamente elminado de la ruta {ruta}")
+               js.UpdateJson(js.JSON_RUTAS, dbRutas)
+               return
+      except:
+        print("Ingrese solo numeros porfavor")
+        Oprimir
  pass
 
 def CampersInscritos():
