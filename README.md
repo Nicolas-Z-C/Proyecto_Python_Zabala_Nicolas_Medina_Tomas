@@ -158,7 +158,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **Link del Proyecto**: [https://github.com/Nicolas-Z-C/Proyecto_Python_Zabala_Nicolas_Medina_Tomas](https://github.com/Nicolas-Z-C/Proyecto_Python_Zabala_Nicolas_Medina_Tomas)
 
-## 🙏 Agradecimientos
+## Agradecimientos
 
 - Campuslands por el apoyo en el desarrollo del proyecto
 - Comunidad de Python por las herramientas y recursos
@@ -167,3 +167,4 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 ---
 
 *Desarrollado con ❤️ por Tomás Felipe Medina Prada y Nicolás Zabala Castañeda*
+
