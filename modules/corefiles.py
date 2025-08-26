@@ -131,10 +131,10 @@ def Nombre():
    clr()
    try:   
       Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
-      if not nombre.strip():
+      if not Nombre.strip():
        raise ValueError("El nombre no puede estar vacío.")
        Oprimir()
-      elif not nombre.replace(" ", "").isalpha():
+      elif not Nombre.replace(" ", "").isalpha():
        raise ValueError("El nombre solo puede contener letras.")
       else:
        return Nombre
@@ -149,7 +149,7 @@ def CC():
   clr()
   try:
    cc=int(input("Porfavor ingrese su numero de cedula: "))
-   if not nombre.strip():
+   if not cc.strip():
       raise ValueError("El Numero de cedula no puede estar vacío.")
       Oprimir()
    elif cc in cuentas:
@@ -166,7 +166,7 @@ def Direccion():
  while True:
    clr()
    dire =str(input("Porfavor ingresa la direccion de residencia del camper: "))
-   if not nombre.strip():
+   if not dire.strip():
       raise ValueError("El nombre no puede estar vacío.")
       Oprimir()
    else:
@@ -239,7 +239,7 @@ def EditarRiesgo(cc: str,ModuloATomar):
  for i in dbNotas[cc]["Modulos"]:
      nota += dbNotas[cc]["Modulos"][ModuloATomar]["Total"]
      modulos +=1
- promedio= nota/modulos
+ promedio= nota/modulos  
  if promedio < 60:
    db[cc]["Riesgo"] = "Alto"
    return
@@ -769,18 +769,39 @@ def Trainers():
      pass  
  print(f"Los trainers activos son: {trainers}") 
  Oprimir()
- 
 
 def CampersBajoRendimiento():
  # Esta funcion permite ver los campers con bajo rendimiento
+ dbCuentas=js.ReadJson(js.JSON_CUENTAS)
+ camperBajo=[]
+ for x, i in dbCuentas["CAMPERS"]:
+   if i["RIESGO"] == "ALTO":
+     camperBajo.append(x)
+   else:
+     continue 
+ print(f"Estos son los estudiantes de riesgo ALTO")     
+ for idx, i in enumerate(camperBajo):   
+  print(f"{idx}.-{i}")      
  pass  
 
 def CampersYTrainersMismaRuta():
  # Esta funcion permite ver los campers y trainers que estan en la misma ruta
- pass
+ dbRutas=js.ReadJson(js.JSON_RUTAS)
+ while True:
+   clr()
+   VerRutas()
+   ruta=str(input("Porfavor ingrese el nombre de la ruta a la cual desea mirar su trainer y estudiantes: "))
+   if ruta in dbRutas:
+      for idx, x in enumerate(dbRutas[ruta]["CAMPERS"]):
+         print(f"{idx}, Estudiante: {x}")
+      print("\n")
+      print(F"Trainer encargado: {dbRutas[ruta]["TRAINER"]}")  
+      Oprimir()
+      return 
+   else:
+      print("La ruta deseada no se encuentra en nuestra base de datos")  
+      Oprimir() 
 
-def Estadisticas():
+def EstadisticasPorRuta():
  # Esta funcion permite ver las estadisticas academicas
  pass
-
-
