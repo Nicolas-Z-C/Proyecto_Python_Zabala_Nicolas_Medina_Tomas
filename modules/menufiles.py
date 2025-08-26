@@ -4,58 +4,56 @@ import modules.corefiles as core
 def MainMenu():
     core.clr()
     print("""
-    --------------------------------------------
-        **** Menu Principal ****       
-    --------------------------------------------
-        1. Crear Cuenta (Camper)
-        2. Crear Cuenta (Trainer)  
-        3. Cambiar Estatus Camper
-        4. Registrar Notas
-        5. Cambiar Notas
-        6. Matricular Campers
-        7. Crear Nueva Ruta
-        8. Reportes
-        9. Borrar Cuenta(Camper)
-       10. Borrar Cuenta(Camper) 
-       11. Salir   
-    --------------------------------------------
+-----------------------------------
+|         Menu Principal          |
+-----------------------------------
+|   1. Gestor Cuentas             |
+|   2. Gestor Academico           |
+|   3. Reportes                   |
+|   4. Salir                      |                        
+-----------------------------------
     """)
-
 def MenuGestorCuentas():
+    core.clr()
     print("""
-    --------------------------------------------
-        **** Menu Gesto De Cuentas ****       
-    --------------------------------------------
-        1. Crear Cuenta (Camper)
-        2. Crear Cuenta (Trainer)  
-        3. Cambiar Estatus Camper
-        4. Borrar Cuenta(Camper)
-        5. Borrar Cuenta(Camper) 
-        6. Salir   
-    --------------------------------------------
-    """)
-
+-----------------------------------
+|         Gestor Cuentas          |
+-----------------------------------
+|   1. Crear Cuenta Camper        |
+|   2. Crear Cuenta Traine        |
+|   3. Cambiar Estatus Campus     |
+|   4. Salir                      |                        
+-----------------------------------
+          """)
 def MenuGestorAcademico():
+    core.clr()
     print("""
-    --------------------------------------------
-        **** Menu Academico ****       
-    --------------------------------------------
-        1. Registrar Notas
-        2. Cambiar Notas
-        3. Matricular Campers
-        4. Crear Nueva Ruta   
-    --------------------------------------------
-    """)
+----------------------------------- 
+|        Gestor Academico         |
+-----------------------------------
+|   1. Crear Cuenta Camper        |
+|   2. Crear Cuenta Traine        |
+|   3. Cambiar Estatus Campus     | 
+|   4. Cambiar Estatus Campus     |
+|   5. Salir                      |                        
+-----------------------------------
 
-def Reportes():
+          """)
+def MenuReportes():
+    core.clr()
     print("""
-    --------------------------------------------
-        **** Menu Reportes ****       
-    --------------------------------------------
-    
-       
-    --------------------------------------------
-    """)    
+-----------------------------------
+|           Reportes              |
+-----------------------------------
+|   1. Campers Inscritos          |
+|   2. Campers Aprobado           |
+|   3. Campers Activo             | 
+|   4. Campers Bajo Rendimiento   |
+    5. Campers Rutas Perdidas     |
+|   6. Salir                      |                        
+-----------------------------------
+          """)
+
 def Modulos():
     core.clr()    
     print("""
@@ -87,6 +85,13 @@ def TitulasCambiarNotas():
     print("""
 --------------------------------------
 |    Bienvenido a Cambiar Notas    | 
+--------------------------------------
+          """)
+def TitulasCrearRuta():
+    core.clr()
+    print("""
+--------------------------------------
+|      Bienvenido a Crear Notas      | 
 --------------------------------------
           """)
 def TitulasRegistroNotas():

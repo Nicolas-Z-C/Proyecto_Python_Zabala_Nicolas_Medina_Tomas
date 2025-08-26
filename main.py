@@ -1,5 +1,5 @@
 import modules.corefiles as core
-import modules.menufiles as menus
+import modules.menufiles as mn
 import modules.Js as Js
 if __name__ == "__main__":
  print("""
@@ -21,35 +21,72 @@ if __name__ == "__main__":
    pass
  core.Login()
  contador=False
- while True:
+ Repetir = 's'
+ while Repetir == 's':
   core.clr()
-  menus.MainMenu()
+  mn.MainMenu()
   try:
     op = int(input('Ingrese la opcion que desee.\nOpcion: '))
     match op:
       case 1:
-        core.CrearCuenta()
+        mn.MenuGestorCuentas()
+        op = int(input('Ingrese la opcion que desee.\nOpcion: '))
+        match op:
+          case 1:
+            pass
+          case 2:
+            pass
+          case 3:
+            pass
+          case 4:
+            print('Saliendo del sistema...')
+            Repetir = 'n'
+            break
+          case _:
+            print('Opcion ingresada no disponible..')
+            core.Oprimir()
       case 2:
-        core.AgregarTrainer()
+        mn.MenuGestorAcademico()
+        op = int(input('Ingrese la opcion que desee.\nOpcion: '))
+        match op:
+          case 1:
+            pass
+          case 2:
+            pass
+          case 3:
+            pass
+          case 4:
+            pass
+          case 5:
+            print('Saliendo del sistema...')
+            Repetir = 'n'
+            break
+          case _:
+            print('Opcion ingresada no disponible..')
+            core.Oprimir()
       case 3:
-        core.CambiarEstatusCamper()
+        mn.MenuReportes()
+        op = int(input('Ingrese la opcion que desee.\nOpcion: '))
+        match op:
+          case 1:
+            pass
+          case 2:
+            pass
+          case 3:
+            pass
+          case 4:
+            pass
+          case 5:
+            pass
+          case 6:
+            print('Saliendo del sistema...')
+            Repetir = 'n'
+            break
+          case _:
+            print('Opcion ingresada no disponible..')
+            core.Oprimir()
       case 4:
-        core.RegistrarNotas()
-      case 5:
-        core.CambiarNotas()
-      case 6:
-        core.MatricularCampers()
-      case 7:
-        core.CrearNuevaRuta()
-      case 8:
-        core.VerNotas()
-      case 9:
-        core.BorrarCuentaCamper()
-      case 10:
-        core.BorrarCuentaTrainer()
-      case 11:
-        print("Saliendo del sistema...")
-        break
+        print('Saliendo del sistema..')
       case _:
         print("Opcion no valida, por favor intente de nuevo.")
   except ValueError:
