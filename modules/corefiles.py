@@ -295,7 +295,7 @@ def EditarEstatus():
    else:
       print("La cedula ingresada no se encuentra registrada")
       Oprimir() 
-"""
+      
 def NotaPractica():
    # Agregrar nota de Practicas
    while True:
@@ -350,16 +350,16 @@ def NotaTrabajos():
          print('Error: El dato ingresado solo pueden ser NUMEROS ENTEROS.')
          Oprimir()
          
-def NotaTotal():
+def NotaTotal(modulo, Camper):
    # hace la ecuacion de la nota total del camper
-   NotaPractica = NotaPractica()
-   NotaTeoria = NotaTeoria()
-   NotaTrabajos = NotaTrabajos()
-   NotaTotal = (NotaPractica + NotaTeoria + NotaTrabajos) / 3
-   NotaTotal = f"{NotaTotal:.1f}"
-   return NotaTotal
-   
-def TipoNota(modulo):
+   Notas = js.ReadJson(js.JSON_NOTAS)
+   NotaPractica = Notas[Camper]["MODULOS"][modulo]["NOTAS"]["PRACTICA"]
+   NotaTeoria = Notas[Camper]["MODULOS"][modulo]["NOTAS"]["TEORIA"]
+   NotaTrabajo = Notas[Camper]["MODULOS"][modulo]["NOTAS"]["TRABAJOS"]
+   SumaTotal = (NotaTeoria+NotaTrabajo+NotaPractica) / 3
+   return SumaTotal
+
+def TipoNota(modulo, Camper):
    Notas = js.ReadJson(js.JSON_NOTAS)
    while True:
       mn.MenuTipoNota()
@@ -368,13 +368,13 @@ def TipoNota(modulo):
          match opcion:
             case 1:
                NotaAsignada = NotaTeoria()
-               Notas[CC][modulo] = NotaAsignada
+               Notas[Camper]["MODULOS"][modulo]["NOTAS"]["TEORIA"] = NotaAsignada
             case 2:  
                NotaAsignada = NotaPractica()
-               Notas[CC][modulo] = NotaAsignada
+               Notas[Camper]["MODULOS"][modulo]["NOTAS"]["PRACTICA"] = NotaAsignada
             case 3:
                NotaAsignada = NotaTrabajos()
-               Notas[CC][modulo] = NotaAsignada
+               Notas[Camper]["MODULOS"][modulo]["NOTAS"]["TRABAJOS"] = NotaAsignada
             case _:
                print('Opcion no disponible..')
                Oprimir()
@@ -382,7 +382,7 @@ def TipoNota(modulo):
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
         
-def TipoModulo():
+def TipoModulo(Camper):
    while True:
       try:
          mn.Modulos()
@@ -390,29 +390,34 @@ def TipoModulo():
          match opcion:
             case 1:
                modulo = "MODULO 1"
-               TipoNota(modulo)
+               TipoNota(modulo, Camper)
+               NotaTotal(modulo, Camper)
             case 2:
                modulo = "MODULO 2"
-               TipoNota(modulo)
+               TipoNota(modulo, Camper)
+               NotaTotal(modulo, Camper)
             case 3:
                modulo = "MODULO 3"
-               TipoNota(modulo)
+               TipoNota(modulo, Camper)
+               NotaTotal(modulo, Camper)
             case 4:
                modulo = "MODULO 4"
-               TipoNota(modulo)
+               TipoNota(modulo, Camper)
+               NotaTotal(modulo, Camper)
             case 5:
                modulo = "MODULO 5"
-               TipoNota(modulo)
+               TipoNota(modulo, Camper)
+               NotaTotal(modulo, Camper)
             case _:
                print('La opcion ingresada no esta disponible.')
                Oprimir()
       except ValueError:
          print('Error: Solo se pueden ingresar numeros..')
          Oprimir()
-         """
+         
 def OrdenRegistroNotas(CC: str):
    notas = {
-      CC: {
+      CC:{
          "MODULOS": {
             "MODULOS 1": "FUNDAMENTOS DE LA PROGRAMACION",
                "NOTAS": {
@@ -460,8 +465,8 @@ def RegistrarNotas():
    while True:
       try:
          Camper = input('Ingrese el documento del camper')
-         if Camper in db:
-            TipoModulo()
+         if Camper in db["CC"]:
+            TipoModulo(Camper)
          else:
             print('Camper no encontrado..')
             Oprimir()

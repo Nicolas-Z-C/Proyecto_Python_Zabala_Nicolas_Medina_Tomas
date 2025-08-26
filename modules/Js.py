@@ -38,4 +38,3 @@ def InitJson(file_path: str, initial_structure: Dict) -> None:
             if key not in current_data:
                 current_data[key] = value
         WriteJson(file_path, current_data)
-
