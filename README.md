@@ -147,10 +147,6 @@ python -m pytest tests/
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abrir Pull Request
 
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
 ## 📞 Contacto
 
 - **Tomás Felipe Medina Prada** - [GitHub](https://github.com/)
@@ -167,4 +163,5 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 ---
 
 *Desarrollado con ❤️ por Tomás Felipe Medina Prada y Nicolás Zabala Castañeda*
+
 
