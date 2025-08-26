@@ -91,9 +91,9 @@ def CrearCuenta():
  cuenta={}
  while True:
     print("""
-        ---------------------------------------------------------
-        |A continuacion porfavor ingrese los datos de los campers
-        ---------------------------------------------------------
+        __________________________________________________________
+        |A continuacion porfavor ingrese los datos de los campers|
+        ----------------------------------------------------------
         """)
     cuentaNueva = {
      
@@ -112,28 +112,35 @@ def CrearCuenta():
     js.UpdateJson(js.JSON_NOTAS,OrdenRegistroNotas(cuentaNueva["CC"]))
     print("Cuenta creada exitosamente")
     print(cuentaNueva)
-
-    op = input("Desea crear otra cuenta? (S/N): ").strip().upper()
-    if op == "N":
-        return
-    elif op == "S":
-        continue
-    else:
-        print("Opcion no valida, porfavor intente de nuevo")
-        Oprimir()
+    try:
+      op = input("Desea crear otra cuenta? (S/N): ").strip().upper()
+      if op == "N":
+         return
+      elif op == "S":
+         continue
+      else:
+         print("Opcion Ingresada no disponible.")
+         Oprimir()
+    except ValueError:
+      print('Error: Solo se pueden ingresar letras.')
+      Oprimir()
 
 def Nombre():
  # Esta funcion permite ingresar el nombre del usuario
  while True:
-    clr()
-    Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
-    if not Nombre:
-      print("El nombre no puede estar vacio")
+   clr()
+   try:   
+      Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
+      if not nombre.strip():
+       raise ValueError("El nombre no puede estar vacío.")
+       Oprimir()
+      elif not nombre.replace(" ", "").isalpha():
+       raise ValueError("El nombre solo puede contener letras.")
+      else:
+       return Nombre
+   except ValueError as e:
+      print(f"Error: {e}. Intente de nuevo.")
       Oprimir()
-      continue
-    else:
-     return Nombre
-   
 
 def CC():
  # Esta funcion permite ingresar el numero de cedula del usuario
@@ -142,26 +149,28 @@ def CC():
   clr()
   try:
    cc=int(input("Porfavor ingrese su numero de cedula: "))
-   if cc in cuentas:
+   if not nombre.strip():
+      raise ValueError("El Numero de cedula no puede estar vacío.")
+      Oprimir()
+   elif cc in cuentas:
     print("El valor registrado ya se encuentra en nuestra base de datos")
     Oprimir()
    else:
     return cc
   except ValueError:
-   print("Valor no soportado")
+   print("Solo se pueden ingresar numeros")
    Oprimir()
 
 def Direccion():
  # Esta funcion permite ingresar la direccion del usuario
  while True:
-  clr()
-  dire=str(input("Porfavor ingresa la direccion de residencia del camper: "))
-  if not dire:
-      print("Porfavor ingrese una direccion valida")
+   clr()
+   dire =str(input("Porfavor ingresa la direccion de residencia del camper: "))
+   if not nombre.strip():
+      raise ValueError("El nombre no puede estar vacío.")
       Oprimir()
-      continue
-  else:
-   return dire
+   else:
+      return dire
 
 def Acudiente():
  # Esta funcion permite ingresar el nombre del acudiente del usuario
@@ -179,31 +188,36 @@ def Telefono():
  # Esta funcion permite ingresar el telefono del usuario
  while True:
     clr()
-    op = input("""
-    --------------------------------------------------------------------
-    | Ingrese porfavor el tipo de telefono que se registrara al camper 
-    |                                                                  
-    | 1. Movil                                                         
-    | 2. Fijo                                                          
-    |                                                                  
-    --------------------------------------------------------------------        
-    : """)
-    match op: 
-     case "1":
-        numero=str(input("Digite el telefono movil del camper: "))
-        if len(numero) != 10:
-         Oprimir()
-        else: 
-         return numero
-     case "2":
-        numero=str(input("Digite el telefono fijo del camper: "))
-        if len(numero) != 8:
-         Oprimir()
-        else: 
-         return numero
-     case _:
-      Oprimir()
-
+    try:
+      op = int(input("""
+      --------------------------------------------------------------------
+      | Ingrese porfavor el tipo de telefono que se registrara al camper 
+      |                                                                  
+      | 1. Movil                                                         
+      | 2. Fijo                                                          
+      |                                                                  
+      --------------------------------------------------------------------        
+      : """))
+      match op: 
+         case 1:
+            numero=str(input("Digite el telefono movil del camper: "))
+            if len(numero) != 10:
+               print('El numeor es invalido.')
+               Oprimir()
+            else: 
+               return numero
+         case 2:
+            numero=str(input("Digite el telefono fijo del camper: "))
+            if len(numero) != 8: 
+               print('El numeor es invalido.')
+               Oprimir()
+            else: 
+               return numero
+         case _:
+            Oprimir()
+    except ValueError:
+       print('Error: Solo se pueden ingresar numeros.')
+       Oprimir()
 def EditarEstatus():
  # Esta funcion permite editar el estatus de un camper
  db = js.ReadJson(js.JSON_CUENTAS)
@@ -254,11 +268,6 @@ def Login():
          ContraseñaRegistrada = input('Registre la contraseña del sistema.\n Contraseña:  ')
          js.UpdateJson(js.JSON_CUENTAS, {"contrasenaadmin":ContraseñaRegistrada})
          break
-
-def CambiarNota():
- # Esta funcion permite cambiar la nota del Camper
- pass
-
 def VerNotas():
  # Esta funcion permite ver las notas del Camper
  dbNotas=js.ReadJson(js.JSON_NOTAS)
@@ -276,7 +285,6 @@ def VerNotas():
    except ValueError:
      print("Valor no soportado")
      Oprimir()
-
 def VerUsuarios():
  # Esta funcion permite ver los usuarios registrados en la aplicacion
  dbCuentas= js.ReadJson(js.JSON_CUENTAS)
@@ -479,11 +487,27 @@ def OrdenRegistroNotas(CC: str):
       }
    }
    return notas
+
+def CambiarNota():
+   # Esta funcion permite cambiar la nota del Camper
+   db=js.ReadJson(js.JSON_CUENTAS)
+   while True:
+      mn.TitulasCambiarNotas()
+      try:
+         Camper = input('Ingrese el documento del camper')
+         if Camper in db["CC"]:
+            TipoModulo(Camper)
+         else:
+            print('Camper no encontrado..')
+            Oprimir()
+      except ValueError:
+         print('Error')
    
 def RegistrarNotas():
    db=js.ReadJson(js.JSON_CUENTAS)
    OrdenRegistroNotas()
    while True:
+      mn.TitulasRegistroNotas()
       try:
          Camper = input('Ingrese el documento del camper')
          if Camper in db["CC"]:

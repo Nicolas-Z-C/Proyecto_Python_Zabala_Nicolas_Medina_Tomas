@@ -47,3 +47,17 @@ def MenuTipoNota():
 ----------------------------------------
 
           """)
+def TitulasCambiarNotas():
+    core.clr()
+    print("""
+--------------------------------------
+|    Bienvenido a Cambiar Notas    | 
+--------------------------------------
+          """)
+def TitulasRegistroNotas():
+    core.clr()
+    print("""
+--------------------------------------
+|    Bienvenido a Registrar Notas    | 
+--------------------------------------
+          """)
