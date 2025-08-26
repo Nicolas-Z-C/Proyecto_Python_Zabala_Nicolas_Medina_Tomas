@@ -21,63 +21,64 @@ if __name__ == "__main__":
    pass
  core.Login()
  contador=False
- Repetir = 's'
- while Repetir == 's':
+ while True:
   core.clr()
   mn.MainMenu()
   try:
     op = int(input('Ingrese la opcion que desee.\nOpcion: '))
     match op:
       case 1:
-        mn.MenuGestorCuentas()
-        op = int(input('Ingrese la opcion que desee.\nOpcion: '))
-        match op:
-          case 1:
-            pass
-          case 2:
-            pass
-          case 3:
-            pass
-          case 4:
-            print('Saliendo del sistema...')
-            Repetir = 'n'
-            break
-          case _:
-            print('Opcion ingresada no disponible..')
-            core.Oprimir()
+        while True:
+          mn.MenuGestorCuentas()
+          op = int(input('Ingrese la opcion que desee.\nOpcion: '))
+          match op:
+            case 1:
+              core.CrearCuenta()
+            case 2:
+              core.AgregarTrainer()
+            case 3:
+              core.EditarEstatus()
+            case 4:
+              core.EditarEstatus()
+            case 5:
+              print('Saliendo del sistema...')
+              break
+            case _:
+              print('Opcion ingresada no disponible..')
+              core.Oprimir()
       case 2:
-        mn.MenuGestorAcademico()
-        op = int(input('Ingrese la opcion que desee.\nOpcion: '))
-        match op:
-          case 1:
-            pass
-          case 2:
-            pass
-          case 3:
-            pass
-          case 4:
-            pass
-          case 5:
-            print('Saliendo del sistema...')
-            Repetir = 'n'
-            break
-          case _:
-            print('Opcion ingresada no disponible..')
-            core.Oprimir()
+        while True:
+          mn.MenuGestorAcademico()
+          op = int(input('Ingrese la opcion que desee.\nOpcion: '))
+          match op:
+            case 1:
+              core.RegistrarNotas()
+            case 2:
+              core.CambiarNota()
+            case 3:
+              core.AgregarARuta()
+            case 4:
+              core.NuevaRuta()
+            case 5:
+              print('Saliendo del sistema...')
+              break
+            case _:
+              print('Opcion ingresada no disponible..')
+              core.Oprimir()
       case 3:
         mn.MenuReportes()
         op = int(input('Ingrese la opcion que desee.\nOpcion: '))
         match op:
           case 1:
-            pass
+            core.CampersInscritos()
           case 2:
-            pass
+            core.CampersAprobados()
           case 3:
-            pass
+            core.Trainers()
           case 4:
-            pass
+            core.CampersBajoRendimiento()
           case 5:
-            pass
+            core.CampersYTrainersMismaRuta()
           case 6:
             print('Saliendo del sistema...')
             Repetir = 'n'

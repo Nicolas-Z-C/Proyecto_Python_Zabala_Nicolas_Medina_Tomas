@@ -21,7 +21,8 @@ def MenuGestorCuentas():
 -----------------------------------
 |   1. Crear Cuenta Camper        |
 |   2. Crear Cuenta Traine        |
-|   3. Cambiar Estatus Campus     |
+|   3. Cambiar Estatus Camper     |
+|   4. Cambiar Estatus Trainer    |
 |   4. Salir                      |                        
 -----------------------------------
           """)
@@ -31,10 +32,10 @@ def MenuGestorAcademico():
 ----------------------------------- 
 |        Gestor Academico         |
 -----------------------------------
-|   1. Crear Cuenta Camper        |
-|   2. Crear Cuenta Traine        |
-|   3. Cambiar Estatus Campus     | 
-|   4. Cambiar Estatus Campus     |
+|   1. Registrar Notas Campers    |
+|   2. Cambiar Notas Campers      |
+|   3. Matriculas Campers         |
+|   4. Nueva Ruta                 |
 |   5. Salir                      |                        
 -----------------------------------
 
@@ -47,9 +48,9 @@ def MenuReportes():
 -----------------------------------
 |   1. Campers Inscritos          |
 |   2. Campers Aprobado           |
-|   3. Campers Activo             | 
+|   3. Trainer Activo             | 
 |   4. Campers Bajo Rendimiento   |
-    5. Campers Rutas Perdidas     |
+|   5. Campers Rutas              |
 |   6. Salir                      |                        
 -----------------------------------
           """)
