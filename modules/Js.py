@@ -2,7 +2,7 @@ import os
 import json
 from typing import Dict, List, Optional, Any, Union, Callable
 
-
+JSON_TRAINERS = "data/JsonTrainers.json"
 JSON_CUENTAS = "data/JsonCuentas.json"
 JSON_NOTAS = "data/JsonNotas.json"
 JSON_RUTAS = "data/JsonRutas.json"

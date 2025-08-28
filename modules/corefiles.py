@@ -18,7 +18,81 @@ def Wait(S:int):
 def Oprimir():
  # Funcion para cuando hay un error con el usuario
  input("Oprima una tecla para continuar")
-
+def IniciarJsonsTrainer():
+   dicc_inicio = {}
+   js.InitJson(js.JSON_TRAINERS, dicc_inicio)
+   
+def mostrarJsonTrainer():
+ m = js.ReadJson(js.JSON_RUTAS)
+ print(m)
+def idTrainer():
+   id = input('Ingrese la id que desa corresponderle al Trainer: ')
+   return id
+def NombreTrainer():
+   while True:
+      clr()
+      try:   
+         Nombre=str(input("Porfavor ingrese el nombre seguido del primer apellido del camper: "))
+         if not Nombre.strip():
+            raise ValueError("El nombre no puede estar vacío.")
+            Oprimir()
+         elif not Nombre.replace(" ", "").isalpha():
+            raise ValueError("El nombre solo puede contener letras.")
+         else:
+            return Nombre
+      except ValueError as e:
+         print(f"Error: {e}. Intente de nuevo.")
+         Oprimir()
+def RutaTrainer():
+   readjson = js.ReadJson(js.JSON_RUTAS)
+   print("""
+   ______________________________
+   |  ASIGNAR RUTA DEL TRAINER  |
+         """)
+   if readjson == {}: 
+      print('No hay rutas disponibles.')
+      msg = "No hay RuTa Asignada"
+      return msg
+   else:
+      NombreRuta = input('Ingrese el nombre de la Ruta:')
+      return NombreRuta
+      
+def SalonTrainer():
+   print("""
+   Salones De Campus
+   
+   1. Apolo
+   2. Cosmos
+   3. Skylap
+   
+         """)
+   while True:
+      salon = input('Ingrese la opcion del Salon correspondiente: ')
+      match salon:
+         case 1:
+            sala = "Apolo"
+            return sala
+         case 2:
+            sala = "Cosos"
+            return sala
+         case 3:
+            sala = "Skylap"
+            return sala
+         case _:
+            print('No es una opcion.')
+            continue
+def RegistroAsignacionTrainer(cc):
+   diccionario = {
+      cc:{
+      "id": idTrainer(),
+      "Nombre": NombreTrainer(),
+      "Ruta" : RutaTrainer(),
+      "salon" : SalonTrainer()
+      }
+   }
+   
+def contadorTrainers():
+   contador += 1
 def IniciarJsons1():
  estructuraInicialCuentas = {
         "CAMPERS": {},
@@ -27,8 +101,11 @@ def IniciarJsons1():
  a = {}
  js.InitJson(js.JSON_NOTAS, a)
  js.InitJson(js.JSON_CUENTAS, estructuraInicialCuentas)
-  
 def IniciarJsonRutas():
+   d = {}
+   js.InitJson(js.JSON_RUTAS, d)
+  
+def IniciarJsonRutasPlantilla():
  fechas= FechaFinal()
  fechaInicio=fechas(0)
  fechaFinalizacion=fechas(1)      
@@ -79,10 +156,13 @@ def AgregarTrainer():
      "CC":CC(),
      "DIRECCION":Direccion(),
      "TELEFONO":Telefono(),
-     "RUTA": [],
      "ESTADO": "CONTRATADO"  
      }
-    
+ # Aca comienza el registro de la informacion de jsonTrainer
+ print('Ahora se registraran las Asignaciones del Trainer')
+ cc = TrainerNuevo["CC"]
+ RegistroAsignacionTrainer(cc)
+
  Trainer={TrainerNuevo["CC"]:TrainerNuevo}
  js.UpdateJson(js.JSON_CUENTAS,Trainer,["TRAINERS"])
  

@@ -1,36 +1,5 @@
 {
-    "CAMPERS": {
-        "1": {
-            "NOMBRE": "ed",
-            "CC": 1,
-            "DIRECCION": "asd",
-            "ACUDIENTE": "asd",
-            "TELEFONO": "1234567890",
-            "ESTATUS": "APROVADO",
-            "RIESGO": "BAJO",
-            "RUTA": null
-        },
-        "2": {
-            "NOMBRE": "RF",
-            "CC": 2,
-            "DIRECCION": "AD",
-            "ACUDIENTE": "AD",
-            "TELEFONO": "0123456789",
-            "ESTATUS": "INSCRITO",
-            "RIESGO": "BAJO",
-            "RUTA": null
-        }
-    },
+    "CAMPERS": {},
     "RUTAS": {},
-    "contrasenaadmin": "45",
-    "TRAINERS": {
-        "2": {
-            "NOMBRE": "e",
-            "CC": 2,
-            "DIRECCION": "weds",
-            "TELEFONO": "1234567890",
-            "RUTA": [],
-            "ESTADO": "ACTIVO"
-        }
-    }
+    "contrasenaadmin": "123"
 }

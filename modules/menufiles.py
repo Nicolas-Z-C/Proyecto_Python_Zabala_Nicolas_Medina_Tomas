@@ -1,8 +1,20 @@
 
 import modules.corefiles as core 
 
-def MainMenu():
+def menuAsignacion():
     core.clr()
+    print("""
+-----------------------------------
+|     Asignaciones Del Trainer    |
+-----------------------------------
+|   1. ID                         |
+|   2. Nombre                     |
+|   3. Ruta                       |
+|   4. Salon                      |
+|   5. Salir                      |                        
+-----------------------------------
+    """)
+def MainMenu():
     print("""
 -----------------------------------
 |         Menu Principal          |
@@ -22,8 +34,9 @@ def MenuGestorCuentas():
 |   1. Crear Cuenta Camper        |
 |   2. Crear Cuenta Trainer       |
 |   3. Cambiar Estatus Camper     |
-|   5. Cambiar Estatus Trainer    |
-|   4. Salir                      |                        
+|   4. Cambiar Estatus Trainer    |
+|   5. Asiganciones Trainers
+|   6. Salir                      |                        
 -----------------------------------
           """)
 def MenuGestorAcademico():

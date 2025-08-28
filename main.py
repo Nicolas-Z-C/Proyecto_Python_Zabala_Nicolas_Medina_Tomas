@@ -2,6 +2,8 @@ import modules.corefiles as core
 import modules.menufiles as mn
 import modules.Js as Js
 if __name__ == "__main__":
+ core.IniciarJsonsTrainer()
+ core.IniciarJsonRutas()
  print("""
        -------------------------------------------------------------
        |***Bienvenido al sistema de gestion de campers y trainers***|
@@ -41,6 +43,8 @@ if __name__ == "__main__":
             case 4:
               core.EditarEstatusTrainer()
             case 5:
+              core.mostrarJsonTrainer()
+            case 6:
               print('Saliendo del sistema...')
               break
             case _:
